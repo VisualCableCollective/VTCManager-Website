@@ -1,0 +1,93 @@
+import React, {useState} from "react";
+import HTTPRequestUtils from "../../Utils/HTTPRequestUtils";
+import {toast} from "react-toastify";
+
+const CompanySettingsPage = () => {
+    const [isDeletingCompany, setIsDeletingCompany] = useState(false);
+
+    function DeleteCompany(){
+        if(isDeletingCompany)
+            return;
+        setIsDeletingCompany(true);
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.DeleteCompany), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }), method: 'DELETE', })
+            .then(function(result){
+                if (result.status === 204) {
+                    toast.success("Your company has been deleted successfully!", {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        toastId: "delete-company-success",
+                    });
+                    window.location.href = "/";
+                } else {
+                    toast.error("Sorry, but we couldn't delete your company.", {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        toastId: "delete-company-error",
+                    });
+                }
+                setIsDeletingCompany(false);
+            })
+    }
+
+    return (
+        (
+            <div>
+                <div className="page-wrapper p-6 navbar-top-margin">
+                    <div className="w-full bg-dark-3 rounded p-5 mb-6">
+                        <h1 className="font-bold text-3xl text-center mb-5">Company Settings</h1>
+                        <div className="hidden sm:block">
+                            <div className="py-8">
+                                <div className="border-t border-gray-200"/>
+                            </div>
+                        </div>
+                        <div className="mt-10 sm:mt-0">
+                            <div className="md:grid md:grid-cols-3 md:gap-6">
+                                <div className="md:col-span-1">
+                                    <div className="px-4 sm:px-0">
+                                        <h3 className="text-lg font-medium">Delete Company</h3>
+
+                                        <p className="mt-1 text-sm text-white text-opacity-70">
+                                            Permanently delete your company and all data related to your company.
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                                <div className="mt-5 md:mt-0 md:col-span-2">
+                                    <div className="px-4 py-5 sm:p-6 bg-dark-4 shadow sm:rounded-lg">
+                                        <div className="max-w-xl text-sm text-white">
+                                            Once your company is deleted, all of its resources and data will be
+                                            permanently deleted. This action can't be undone.
+                                        </div>
+
+                                        <div className="mt-5">
+                                            <button type="button"
+                                                    className="inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-800 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-600 transition ease-in-out duration-150 disabled:opacity-50"
+                                            onClick={DeleteCompany} disabled={isDeletingCompany}>
+                                                Delete Company
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    );
+}
+
+export default CompanySettingsPage;
