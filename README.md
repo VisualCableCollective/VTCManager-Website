@@ -1,6 +1,19 @@
-# Getting Started with Create React App
+# VTCManager-Website
+This repository contains the source code for the [VTCManager website](https://vtcmanager.eu/). The website is based on the [React Javascript library](https://reactjs.org/) and interacts with the [VTCManager API](https://github.com/VisualCableCollective/VTCManager-API).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About the VTCManager project
+VTCManager is a powerful job logger for the [Euro Truck Simulator 2 (ETS2)](https://eurotrucksimulator2.de/) and [American Truck Simulator (ATS)](https://americantrucksimulator.com/) by [SCS Software](https://scssoft.com/). It extends the gaming experience of ETS2 and ATS. In addition to the normal logging of orders for Virtual Trucking Companies (VTC), the software adds many other functions such as a convoy assistant, support for external electronic components (displays, microcomputers such as Raspberry Pi or Arduino for external speedometers, dashboards, and buttons) and much more.
+
+### VTCManager Project Status
+The latest version of the VTCManager is currently in public beta. The basic functions are functional, but may still contain errors.
+
+## Additional packages used in this project
+- [Tailwind CSS](https://tailwindcss.com/): CSS Framework
+- [@craco/craco](https://www.npmjs.com/package/@craco/craco): Required by TailwindCSS
+- [react-router-dom](https://reactrouter.com/web/): Routing
+- [victory](https://formidable.com/open-source/victory/): Charting and data visualization
+- [react-number-format](https://www.npmjs.com/package/react-number-format): Easy number formating (for more human-readable numbers)
+- [react-paginate](https://www.npmjs.com/package/react-paginate): Pagination
 
 ## Available Scripts
 
@@ -28,43 +41,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
