@@ -63,7 +63,7 @@ const SideBar = (props) => {
           {User.company_data && User.isOwnerOfCompany() ? <SubMenuItem title="Applications" to="/company/applications" /> : null}
           {User.company_data ? <SubMenuItem title="Employees" to="/company/employees" /> : null}
           <SubMenuItem title="Companies" to="/companies" />
-          {User.company_data && User.isOwnerOfCompany() ? <SubMenuItem title="Settings" to="/company/settings" /> : null}
+          {User.company_data ? <SubMenuItem title="Settings" to="/company/settings" /> : null}
         </div>
         <div className="group relative sidebar-item with-children">
           <div className="block xl:flex xl:items-center text-center xl:text-left shadow-light xl:shadow-none py-6 xl:py-2 xl:px-4 border-l-4 border-blue-dark xl:bg-black bg-black xl:opacity-75">
