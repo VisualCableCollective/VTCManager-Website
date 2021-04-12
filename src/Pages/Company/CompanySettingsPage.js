@@ -128,10 +128,6 @@ const CompanySettingsPage = () => {
                                     <div className="md:col-span-1">
                                         <div className="px-4 sm:px-0">
                                             <h3 className="text-lg font-medium">Leave Company</h3>
-
-                                            <p className="mt-1 text-sm text-white text-opacity-70">
-                                                Leave your company.
-                                            </p>
                                         </div>
                                     </div>
 
