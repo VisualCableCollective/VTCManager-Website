@@ -20,6 +20,7 @@ export default class HTTPRequestUtils {
         "DeleteCompany":16,
         "CheckServiceStatus":17,
         "LeaveCompany":18,
+        "RenameCompany":19,
     });
 
     static getUrl(route, additional_params = "", id = 0){
@@ -77,6 +78,9 @@ export default class HTTPRequestUtils {
                 break;
             case this.API_routes.LeaveCompany:
                 url += "company/leave";
+                break;
+            case this.API_routes.RenameCompany:
+                url += "company/rename";
                 break;
             default:
                 return;
