@@ -18,6 +18,7 @@ module.exports = {
         'dark-3': '#1c1c1c',
         'dark-4': '#2b2b2b',
         'dark-5': '#363636',
+        'dark-6': '#3d3d3d',
         'sidebar': '#1c1c1c',
       },
     },
