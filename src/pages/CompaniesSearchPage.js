@@ -1,9 +1,9 @@
 import React from 'react';
 import {Redirect, useLocation} from 'react-router-dom';
-import HTTPRequestUtils from "../Utils/HTTPRequestUtils";
+import HTTPRequestUtils from "../utils/HTTPRequestUtils";
 import ReactPaginate from "react-paginate";
 import {toast} from "react-toastify";
-import User from '../Models/User';
+import User from '../models/User';
 
 
 export default function CompaniesSearchPage() {

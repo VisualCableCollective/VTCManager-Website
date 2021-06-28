@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import HTTPRequestUtils from "../../Utils/HTTPRequestUtils";
+import HTTPRequestUtils from "../../utils/HTTPRequestUtils";
 import { toast } from "react-toastify";
-import User from "../../Models/User";
+import User from "../../models/User";
 
 const CompanySettingsPage = () => {
     const [isDeletingCompany, setIsDeletingCompany] = useState(false);

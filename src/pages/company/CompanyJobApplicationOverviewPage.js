@@ -1,10 +1,10 @@
 import React from 'react';
 
 import {Link, Redirect, useLocation} from 'react-router-dom';
-import HTTPRequestUtils from "../../Utils/HTTPRequestUtils";
+import HTTPRequestUtils from "../../utils/HTTPRequestUtils";
 import ReactPaginate from "react-paginate";
 
-import User from "../../Models/User";
+import User from "../../models/User";
 
 export default function CompanyJobApplicationOverviewPage() {
     let query = new URLSearchParams(useLocation().search);

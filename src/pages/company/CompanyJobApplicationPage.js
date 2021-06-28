@@ -4,10 +4,10 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {useParams} from 'react-router-dom';
-import HTTPRequestUtils from "../../Utils/HTTPRequestUtils";
+import HTTPRequestUtils from "../../utils/HTTPRequestUtils";
 import {toast} from "react-toastify";
 
-import User from "../../Models/User";
+import User from "../../models/User";
 
 library.add(fas)
 

@@ -1,4 +1,4 @@
-import VTCMDesktopClientImage from "../Resources/Images/Screenshots/screenshot-1.png";
+import VTCMDesktopClientImage from "../resources/images/screenshots/screenshot-1.png";
 
 const ClientDownloadPage = () => {
     return (

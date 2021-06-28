@@ -3,26 +3,25 @@ import ReactPaginate from 'react-paginate';
 
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import {useLocation} from "react-router-dom";
 import NumberFormat from 'react-number-format';
-import {Link} from 'react-router-dom';
 
-//Models
-import LogbookUtils from "../Utils/LogbookUtils";
-import HTTPRequestUtils from "../Utils/HTTPRequestUtils";
+import User from "../../models/User";
+import LogbookUtils from "../../utils/LogbookUtils";
+import HTTPRequestUtils from "../../utils/HTTPRequestUtils";
 
 
 library.add(fas)
 
-export default function LogbookPage() {
+export default function CompanyLogbookPage() {
     let query = new URLSearchParams(useLocation().search);
     const page = parseInt(query.get("page")) + 1;
-    return <LogbookPageClass page={page} />;
+    return <CompanyLogbookPageClass page={page} />;
 }
 
-class LogbookPageClass extends React.Component {
+class CompanyLogbookPageClass extends React.Component {
 
     currentPage = 1;
 
@@ -39,7 +38,7 @@ class LogbookPageClass extends React.Component {
     }
 
     componentDidMount() {
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.UserLogbook, "page=" + this.currentPage), { headers: new Headers({'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json'})})
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyLogbook, "page=" + this.currentPage), { headers: new Headers({'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json'})})
             .then(res => res.json())
             .then(
                 (result) => {
@@ -97,23 +96,23 @@ class LogbookPageClass extends React.Component {
                 );
             });
             response = (
-                <div>
+                <div className="">
                     <table className="mt-5 table-auto w-full">
                         <thead>
-                            <tr key="thead-logbook" className="border-t border-b border-white border-opacity-40">
-                                <th className="px-5 py-1">ID</th>
-                                <th className="px-5 py-1">Departure</th>
-                                <th className="px-5 py-1">Destination</th>
-                                <th className="px-5 py-1">Status</th>
-                                <th className="px-5 py-1">Cargo</th>
-                                <th className="px-5 py-1">Cargo Damage</th>
-                                <th className="px-5 py-1">Truck</th>
-                                <th className="px-5 py-1">Income</th>
-                                <th className="px-5 py-1"></th>
-                            </tr>
+                        <tr key="thead-logbook" className="border-t border-b border-white border-opacity-40">
+                            <th className="px-5 py-1">ID</th>
+                            <th className="px-5 py-1">Departure</th>
+                            <th className="px-5 py-1">Destination</th>
+                            <th className="px-5 py-1">Status</th>
+                            <th className="px-5 py-1">Cargo</th>
+                            <th className="px-5 py-1">Cargo Damage</th>
+                            <th className="px-5 py-1">Truck</th>
+                            <th className="px-5 py-1">Income</th>
+                            <th className="px-5 py-1"></th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {tableContent}
+                        {tableContent}
                         </tbody>
                     </table>
                     <div className={"flex justify-center mt-4"}>
@@ -153,14 +152,14 @@ class LogbookPageClass extends React.Component {
 
         let redirect = null;
         if(newPage){
-            redirect = <Redirect push to={{pathname: "/logbook", search: "?page=" + this.currentPage}} />;
+            redirect = <Redirect push to={{pathname: "/company/logbook", search: "?page=" + this.currentPage}} />;
         }
 
         return (
             (<div className="p-6 navbar-top-margin">
                 <div className="mx-auto sm:px-6 lg:px-8 bg-dark-3 rounded w-full">
                     <div className="overflow-hidden shadow-xl sm:rounded-lg px-5 py-8">
-                        <h1 className="font-bold text-3xl text-center mb-7">Logbook</h1>
+                        <h1 className="font-bold text-3xl text-center mb-7">{User.company_data ? User.company_data["name"] : ""}: Logbook</h1>
                         {response}
                         {redirect}
                     </div>

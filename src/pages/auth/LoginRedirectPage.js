@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import HTTPRequestUtils from "../../Utils/HTTPRequestUtils";
+import HTTPRequestUtils from "../../utils/HTTPRequestUtils";
 
 const LoginPage = (props) => {
     useEffect(() => {

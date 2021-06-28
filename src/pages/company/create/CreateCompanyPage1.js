@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-import AppConfig from '../../../Models/AppConfig';
+import AppConfig from '../../../models/AppConfig';
 
 export default class CreateCompanyPage1 extends React.Component {
     constructor(props) {

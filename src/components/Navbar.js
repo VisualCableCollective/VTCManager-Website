@@ -1,9 +1,9 @@
-import DiscordLogoWhite from '../Resources/Brandings/Discord/Discord-Logo-White.svg';
+import DiscordLogoWhite from '../resources/brandings/discord/Discord-Logo-White.svg';
 //import CalendarIcon from '../Resources/Icons/calendar-white.svg';
-import InformationCircleIcon from '../Resources/Icons/information-circle-white.svg';
-import ServerIcon from '../Resources/Icons/server-white.svg';
-import LoginIcon from '../Resources/Icons/login-white.svg';
-import VTCManagerLogo from '../Resources/Brandings/VTCManager/VTCManager-Logo.png';
+import InformationCircleIcon from '../resources/icons/information-circle-white.svg';
+import ServerIcon from '../resources/icons/server-white.svg';
+import LoginIcon from '../resources/icons/login-white.svg';
+import VTCManagerLogo from '../resources/brandings/vtcmanager/VTCManager-Logo.png';
 import {Link} from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 

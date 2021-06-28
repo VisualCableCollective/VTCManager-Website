@@ -1,28 +1,28 @@
 //Pages
-import HomePage from './Pages/HomePage'
-import LogbookPage from './Pages/LogbookPage'
-import DashboardPage from "./Pages/DashboardPage"
-import CreateCompanyPage1 from "./Pages/Company/Create/CreateCompanyPage1"
-import CompanyDashboardPage from "./Pages/Company/CompanyDashboardPage"
-import CompanyLogbookPage from "./Pages/Company/CompanyLogbookPage"
-import CompaniesSearchPage from "./Pages/CompaniesSearchPage"
-import CompanyJobApplicationPage from "./Pages/Company/CompanyJobApplicationPage"
-import JobPage from "./Pages/JobPage"
-import CompanyJobApplicationOverviewPage from "./Pages/Company/CompanyJobApplicationOverviewPage"
-import CompanyEmployeesPage from "./Pages/Company/CompanyEmployeesPage"
-import LoginRedirectPage from "./Pages/auth/LoginRedirectPage";
-import CompanySettingsPage from "./Pages/Company/CompanySettingsPage";
+import HomePage from './pages/HomePage'
+import LogbookPage from './pages/LogbookPage'
+import DashboardPage from "./pages/DashboardPage"
+import CreateCompanyPage1 from "./pages/company/create/CreateCompanyPage1"
+import CompanyDashboardPage from "./pages/company/CompanyDashboardPage"
+import CompanyLogbookPage from "./pages/company/CompanyLogbookPage"
+import CompaniesSearchPage from "./pages/CompaniesSearchPage"
+import CompanyJobApplicationPage from "./pages/company/CompanyJobApplicationPage"
+import JobPage from "./pages/JobPage"
+import CompanyJobApplicationOverviewPage from "./pages/company/CompanyJobApplicationOverviewPage"
+import CompanyEmployeesPage from "./pages/company/CompanyEmployeesPage"
+import LoginRedirectPage from "./pages/auth/LoginRedirectPage";
+import CompanySettingsPage from "./pages/company/CompanySettingsPage";
 
 //Components
-import SideBar from './Components/SideBar'
-import Navbar from "./Components/Navbar";
+import SideBar from './components/SideBar'
+import Navbar from "./components/Navbar";
 
 //Actions
-import LogoutAction from './Actions/LogoutAction'
+import LogoutAction from './actions/LogoutAction'
 
 //Models
-import User from './Models/User'
-import AppConfig from './Models/AppConfig'
+import User from './models/User'
+import AppConfig from './models/AppConfig'
 
 //CSS
 import 'react-toastify/dist/ReactToastify.css'
@@ -31,10 +31,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import React, { useState, useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify'
-import Footer from "./Components/Footer";
-import ClientDownloadPage from "./Pages/ClientDownloadPage";
-import HTTPRequestUtils from "./Utils/HTTPRequestUtils";
-import MaintenancePage from "./Pages/MaintenancePage";
+import Footer from "./components/Footer";
+import ClientDownloadPage from "./pages/ClientDownloadPage";
+import HTTPRequestUtils from "./utils/HTTPRequestUtils";
+import MaintenancePage from "./pages/MaintenancePage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)

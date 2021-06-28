@@ -1,4 +1,4 @@
-import AppConfig from "../Models/AppConfig";
+import AppConfig from "../models/AppConfig";
 
 export default class HTTPRequestUtils {
     static API_routes = Object.freeze({

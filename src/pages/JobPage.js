@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {useParams} from 'react-router-dom';
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryVoronoiContainer, VictoryLegend } from 'victory';
-import HTTPRequestUtils from "../Utils/HTTPRequestUtils";
+import HTTPRequestUtils from "../utils/HTTPRequestUtils";
 import NumberFormat from 'react-number-format';
-import LogbookUtils from "../Utils/LogbookUtils";
+import LogbookUtils from "../utils/LogbookUtils";
 
 
 
