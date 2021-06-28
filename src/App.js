@@ -48,7 +48,7 @@ const App = () => {
   const showFullPageLoadingSpinnerRef = useRef(showFullPageLoadingSpinner);
   showFullPageLoadingSpinnerRef.current = showFullPageLoadingSpinner;
 
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV === "development" && process.env.REACT_APP_API_SERVER) {
     AppConfig.server_url = process.env.REACT_APP_API_SERVER
   }
 
