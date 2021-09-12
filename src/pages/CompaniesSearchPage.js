@@ -172,7 +172,7 @@ class CompaniesSearchPageClass extends React.Component {
 
         let redirect = null;
         if(this.state.newPage){
-            redirect = <Redirect push to={{pathname: "/logbook", search: "?page=" + this.currentPage}} />;
+            redirect = <Redirect push to={{pathname: "/companies", search: "?page=" + this.currentPage}} />;
         }
 
         let found_companies = [];
