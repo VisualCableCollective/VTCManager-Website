@@ -12,6 +12,7 @@ import CompanyJobApplicationOverviewPage from "./pages/company/CompanyJobApplica
 import CompanyEmployeesPage from "./pages/company/CompanyEmployeesPage"
 import LoginRedirectPage from "./pages/auth/LoginRedirectPage";
 import CompanySettingsPage from "./pages/company/CompanySettingsPage";
+import ActivateLicenseKeyPage from "./pages/ActivateLicenseKeyPage";
 
 //Components
 import SideBar from './components/SideBar'
@@ -29,7 +30,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 //React Components
 import React, { useState, useEffect, useRef } from 'react'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify'
 import Footer from "./components/Footer";
 import ClientDownloadPage from "./pages/ClientDownloadPage";
@@ -38,6 +39,7 @@ import MaintenancePage from "./pages/MaintenancePage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [redirectToActivateAccount, setRedirectToActivateAccount] = useState(false)
   const [isAuthenticating, setIsAuthenticating] = useState(false)
   const [isRedirectingToLoginPage, setIsRedirectingToLoginPage] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
@@ -94,6 +96,14 @@ const App = () => {
             })
             setIsAuthenticated(true);
           } else {
+            
+            if (result["error"] == "NO_LICENSE_KEY"){
+              User.ID = result["userId"];
+              setRedirectToActivateAccount(true);
+              setIsAuthenticating(false);
+              return;
+            }
+
             toast.error('Sorry, but we couldn\'t log you in. Please click "Sign In" on top of the page to try it again.', {
               position: "bottom-right",
               autoClose: 5000,
@@ -162,6 +172,9 @@ const App = () => {
           <div className={"w-full transition-all duration-700 ease-in-out	" + (isAuthenticated && "ml-60")}>
 
             <Switch>
+              <Route path="/account/activate">
+                <ActivateLicenseKeyPage />
+              </Route>
               <Route path="/company/application/:id">
                 <CompanyJobApplicationPage />
               </Route>
@@ -211,6 +224,7 @@ const App = () => {
             <Footer />
           </div>
         </div>
+        { redirectToActivateAccount ? <Redirect to="/account/activate" /> : ""}
       </Router>
       <ToastContainer
         position="bottom-right"
