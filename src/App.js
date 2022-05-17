@@ -30,7 +30,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 //React Components
 import React, { useState, useEffect, useRef } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify'
 import Footer from "./components/Footer";
 import ClientDownloadPage from "./pages/ClientDownloadPage";
@@ -176,60 +176,28 @@ const App = () => {
           <SideBar visible={isAuthenticated} />
           <div className={"w-full transition-all duration-700 ease-in-out	" + (isAuthenticated && "ml-60")}>
 
-            <Switch>
-              <Route path="/account/activate">
-                <ActivateLicenseKeyPage />
-              </Route>
-              <Route path="/company/application/:id">
-                <CompanyJobApplicationPage />
-              </Route>
-              <Route path="/company/applications/">
-                <CompanyJobApplicationOverviewPage />
-              </Route>
-              <Route path="/company/settings">
-                <CompanySettingsPage />
-              </Route>
-              <Route path="/company/dashboard">
-                <CompanyDashboardPage />
-              </Route>
-              <Route path="/company/employees">
-                <CompanyEmployeesPage />
-              </Route>
-              <Route path="/company/logbook">
-                <CompanyLogbookPage />
-              </Route>
-              <Route path="/company/create">
-                <CreateCompanyPage1 />
-              </Route>
-              <Route path="/login">
-                <LoginRedirectPage setIsRedirecting={setIsRedirectingToLoginPage} />
-              </Route>
-              <Route path="/logout">
-                <LogoutAction setIsSigningOut={setIsSigningOut} />
-              </Route>
-              <Route path="/logbook">
-                <LogbookPage />
-              </Route>
-              <Route path="/dashboard">
-                <DashboardPage />
-              </Route>
-              <Route path="/job/:id">
-                <JobPage />
-              </Route>
-              <Route path="/companies">
-                <CompaniesSearchPage />
-              </Route>
-              <Route path="/client/download">
-                <ClientDownloadPage />
-              </Route>
-              <Route path="/">
-                <HomePage checkAuthFunction={checkAuth} />
-              </Route>
-            </Switch>
+            <Routes>
+              <Route path="/account/activate" element={<ActivateLicenseKeyPage />} />
+              <Route path="/company/application/:id" element={<CompanyJobApplicationPage />} />
+              <Route path="/company/applications/" element={<CompanyJobApplicationOverviewPage />} />
+              <Route path="/company/settings" element={<CompanySettingsPage />} />
+              <Route path="/company/dashboard" element={<CompanyDashboardPage />} />
+              <Route path="/company/employees" element={<CompanyEmployeesPage />} />
+              <Route path="/company/logbook" element={<CompanyLogbookPage />} />
+              <Route path="/company/create" element={<CreateCompanyPage1 />} />
+              <Route path="/login" element={<LoginRedirectPage setIsRedirecting={setIsRedirectingToLoginPage} />} />
+              <Route path="/logout" element={<LogoutAction setIsSigningOut={setIsSigningOut} />} />
+              <Route path="/logbook" element={<LogbookPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/job/:id" element={<JobPage />} />
+              <Route path="/companies" element={<CompaniesSearchPage />} />
+              <Route path="/client/download" element={<ClientDownloadPage />} />
+              <Route path="/" element={<HomePage checkAuthFunction={checkAuth} />} />
+            </Routes>
             <Footer />
           </div>
         </div>
-        { redirectToActivateAccount ? <Redirect to="/account/activate" /> : ""}
+        { redirectToActivateAccount ? <Navigate to="/account/activate" /> : ""}
       </Router>
       <ToastContainer
         position="bottom-right"
