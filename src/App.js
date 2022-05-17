@@ -157,6 +157,11 @@ const App = () => {
             setShowFullPageLoadingSpinner(false);
         }
       )
+      .catch((reason) => {
+        setIsInMaintenanceMode(true);
+        if(showFullPageLoadingSpinnerRef.current)
+          setShowFullPageLoadingSpinner(false);
+      })
   }
   let AppContent;
 
