@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Link, Redirect, useLocation} from 'react-router-dom';
+import {Link, Navigate, useLocation} from 'react-router-dom';
 import HTTPRequestUtils from "../../utils/HTTPRequestUtils";
 import ReactPaginate from "react-paginate";
 
@@ -69,7 +69,7 @@ class CompanyJobApplicationOverviewClass extends React.Component {
     render() {
         let redirect = null;
         if(this.state.newPage){
-            redirect = <Redirect push to={{pathname: "/company/applications", search: "?page=" + this.currentPage}} />;
+            redirect = <Navigate push to={{pathname: "/company/applications", search: "?page=" + this.currentPage}} />;
         }
 
         let applications = [];

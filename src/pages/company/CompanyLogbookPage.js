@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { Redirect, Link } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 
 import {useLocation} from "react-router-dom";
 import NumberFormat from 'react-number-format';
@@ -152,7 +152,7 @@ class CompanyLogbookPageClass extends React.Component {
 
         let redirect = null;
         if(newPage){
-            redirect = <Redirect push to={{pathname: "/company/logbook", search: "?page=" + this.currentPage}} />;
+            redirect = <Navigate push to={{pathname: "/company/logbook", search: "?page=" + this.currentPage}} />;
         }
 
         return (
