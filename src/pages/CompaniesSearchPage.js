@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect, useLocation} from 'react-router-dom';
+import {Navigate, useLocation} from 'react-router-dom';
 import HTTPRequestUtils from "../utils/HTTPRequestUtils";
 import ReactPaginate from "react-paginate";
 import {toast} from "react-toastify";
@@ -172,7 +172,7 @@ class CompaniesSearchPageClass extends React.Component {
 
         let redirect = null;
         if(this.state.newPage){
-            redirect = <Redirect push to={{pathname: "/companies", search: "?page=" + this.currentPage}} />;
+            redirect = <Navigate push to={{pathname: "/companies", search: "?page=" + this.currentPage}} />;
         }
 
         let found_companies = [];

@@ -39,7 +39,7 @@ export default class CreateCompanyPage1 extends React.Component {
                     this.setState({ disableInput: false });
                     if(result["message"] === "SUCCESS"){
                         this.setState({ error: false });
-                        window.location.href = "/";
+                        window.location.href = "/company/dashboard";
                     }else{
                         this.handleCreateCompanyError(result);
                     }

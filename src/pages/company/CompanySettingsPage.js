@@ -67,7 +67,7 @@ const CompanySettingsPage = () => {
                         progress: undefined,
                         toastId: "rename-company-success",
                     });
-                    window.location.href = "/";
+                    window.location.href = "/company/dashboard";
                 } else {
                     toast.error("Sorry, but we couldn't change the name of your company.", {
                         position: "bottom-right",

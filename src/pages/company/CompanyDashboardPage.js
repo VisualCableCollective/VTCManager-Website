@@ -108,7 +108,7 @@ export default class CompanyDashboardPage extends React.Component {
                     <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
                         <div className="flex-grow self-center">
                             <h1 className="text-3xl">{dashboardData["employees_online"]}</h1>
-                            <p className="text-opacity-70 text-white mt-1">Employees Online</p>
+                            <p className="text-opacity-70 text-white mt-1">Employees Online (Desktop Client)</p>
                         </div>
                         <div className="flex-none self-center">
                             <FontAwesomeIcon icon="signal" size="3x" color="#24f23c" />

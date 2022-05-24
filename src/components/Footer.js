@@ -31,7 +31,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <hr className="border-dark-1 my-8"/>
-                <p className="text-center text-gray-300">Copyright ©2021 | Made With ❤️ and ☕ by <a
+                <p className="text-center text-gray-300">Copyright ©2021-{new Date().getFullYear()} | Made With ❤️ and ☕ by <a
                     href="https://vcc-online.eu/" className="hover:text-white">The VisualCable Collective</a></p>
                 <div className="flex items-center justify-center pt-5">
                     <a href="https://vcc-online.eu/redirect/instagram"
