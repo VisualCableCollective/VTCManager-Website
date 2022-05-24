@@ -11,7 +11,7 @@ const ClientDownloadPage = () => {
                 <img src={VTCMDesktopClientImage} alt="VTCManager desktop client screenshot"
                      className="h-auto mx-auto my-8 shadow"/>
                 <div>
-                    <a href="https://cdn.vcc-online.eu/app/vtcm/VTCManager-Client-Setup.exe"
+                    <a href="https://cdn.vcc-online.eu/apps/vtcm-installer/VTCManager%20Client%20Setup.exe"
                        className="text-xl sm:text-2xl">Click me to start the download.</a>
                     <h2 className="text-md sm:text-1xl text-gray-400">Requires Windows 10 & <a className="hover:text-white"
                                                                                                href="https://support.microsoft.com/en-us/help/4503548/microsoft-net-framework-4-8-offline-installer-for-windows">.NET
