@@ -25,7 +25,9 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 
 root.render(
     <React.StrictMode>
-        <App />
+        <Sentry.ErrorBoundary showDialog={false}>
+            <App />
+        </Sentry.ErrorBoundary>
     </React.StrictMode>
 );
 
