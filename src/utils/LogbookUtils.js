@@ -2,7 +2,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
 
 export default class LogbookUtils {
-    static getJobStatusIcon(status, IconSize = ""){
+    static getJobStatusIcon(status, IconSize = "lg"){
         switch (status) {
             case "started":
                 return <FontAwesomeIcon icon="truck" color={"#46d3e3"} className={"mr-2"} size={IconSize}/>;
