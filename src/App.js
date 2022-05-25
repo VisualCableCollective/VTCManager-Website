@@ -97,7 +97,7 @@ const App = () => {
             setIsAuthenticated(true);
           } else {
             
-            if (result["error"] == "NO_LICENSE_KEY"){
+            if (result["error"] === "NO_LICENSE_KEY"){
               User.ID = result["userId"];
               setRedirectToActivateAccount(true);
               setIsAuthenticating(false);
