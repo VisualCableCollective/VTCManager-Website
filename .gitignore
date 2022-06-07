@@ -33,3 +33,5 @@ yarn-error.log*
 
 # JetBrains IDE files
 .idea/
+# Sentry
+.sentryclirc

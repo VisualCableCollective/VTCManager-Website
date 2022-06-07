@@ -1,6 +1,7 @@
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
+    "./contexts/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
@@ -24,12 +25,6 @@ module.exports = {
         'sidebar': '#1c1c1c',
       },
     },
-  },
-  variants: {
-    opacity: ['responsive', 'hover', 'focus', 'disabled'],
-    extend: {
-      backgroundOpacity: ['active'],
-    }
   },
   plugins: [],
 }
