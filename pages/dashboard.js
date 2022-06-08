@@ -1,4 +1,3 @@
-import {FaClipboardCheck, FaTruck, FaCoins, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaCircle} from "react-icons/fa";
 import NumberFormat from "react-number-format";
 import User from "../models/User";
 import {useEffect, useState} from "react";
@@ -6,18 +5,27 @@ import Link from "next/link";
 import {HTTPRequestUtils} from "../utils/HTTPRequestUtils";
 import {LogbookUtils} from "../utils/LogbookUtils";
 
+import {FaClipboardCheck, FaTruck, FaCoins, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaCircle} from "react-icons/fa";
+import Log from "tailwindcss/lib/util/log";
+
 export default function UserDashboardPage() {
     const [dashboardData, setDashboardData] = useState([]);
 
     useEffect(() => {
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.UserDashboard), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        // ToDo: retrieve default headers from HTTPRequestUtils
+        let options = {
+            headers: new Headers(
+                {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'),
+                'Accept': 'application/json'
+                })
+        };
+
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.UserDashboard), options)
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result);
                     setDashboardData(result);
-                },
-                (error) => {
                 }
             )
     }, []);
@@ -28,12 +36,34 @@ export default function UserDashboardPage() {
             tableContent.push(
                 <tr key={"logbook-entry-" + element.id} className="border-t border-b border-white border-opacity-40">
                     <td className="px-5 text-center py-2">{element.id || "n/a"}</td>
-                    <td className="px-5 text-center py-2">{element.city_departure.name || "n/a"}, {element.company_departure.name || "n/a"}</td>
-                    <td className="px-5 text-center py-2">{element.city_destination.name || "n/a"}, {element.company_destination.name || "n/a"}</td>
-                    <td className="px-5 text-center py-2"><div className="flex"><div className="flex items-center mx-auto">{LogbookUtils.getJobStatusIcon(element.status)} {LogbookUtils.getJobStatusText((element.status))}</div></div></td>
+
+                    <td className="px-5 text-center py-2">
+                        {element.city_departure.name || "n/a"}, {element.company_departure.name || "n/a"}
+                    </td>
+
+                    <td className="px-5 text-center py-2">
+                        {element.city_destination.name || "n/a"}, {element.company_destination.name || "n/a"}
+                    </td>
+
+                    <td className="px-5 text-center py-2">
+                        <div className="flex">
+                            <div className="flex items-center mx-auto">
+                                {LogbookUtils.getJobStatusIcon(element.status)} {LogbookUtils.getJobStatusText((element.status))}
+                            </div>
+                        </div>
+                    </td>
+
                     <td className="px-5 text-center py-2">{LogbookUtils.getCargoName(element.cargo)}</td>
-                    <td className="px-5 text-center py-2">{element.truck_model.truck_manufacturer.name || "n/a"} {element.truck_model.name || "n/a"}</td>
-                    <td className="px-5 text-center py-2">{<NumberFormat value={element.income} thousandSeparator="." decimalSeparator="," displayType="text" suffix="€" defaultValue={0} fixedDecimalScale={true} decimalScale={2} />}</td>
+
+                    <td className="px-5 text-center py-2">
+                        {element.truck_model.truck_manufacturer.name || "n/a"} {element.truck_model.name || "n/a"}
+                    </td>
+
+                    <td className="px-5 text-center py-2">
+                        {<NumberFormat value={element.income} thousandSeparator="." decimalSeparator="," displayType="text"
+                                       suffix="€" defaultValue={0} fixedDecimalScale={true} decimalScale={2} />}
+                    </td>
+
                     <td className="px-5 text-center py-4">
                         <Link href={"/job/" + element.id}>
                             <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</a>
@@ -42,27 +72,6 @@ export default function UserDashboardPage() {
                 </tr>
             );
         });
-    }
-
-    let latest_tour_status_text = "";
-    let latest_tour_status_icon;
-    switch (dashboardData["latest_tour_status"]) {
-        case "started":
-            latest_tour_status_text = "Started";
-            latest_tour_status_icon = <FaTruck color={"#46d3e3"} size="42px" />;
-            break;
-        case "delivered":
-            latest_tour_status_text = "Delivered";
-            latest_tour_status_icon = <FaCheckCircle color={"#24f23c"} size="42px" />;
-            break;
-        case "cancelled":
-            latest_tour_status_text = "Cancelled";
-            latest_tour_status_icon = <FaTimesCircle color={"#de1b1b"} size="42px" />;
-            break;
-        default:
-            latest_tour_status_text = "n/a";
-            latest_tour_status_icon = <FaQuestionCircle color={"#c2c2c2"} size="42px" />;
-            break;
     }
 
     let online_status_text = "";
@@ -106,7 +115,10 @@ export default function UserDashboardPage() {
                 </div>
                 <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
                     <div className="flex-grow self-center">
-                        <h1 className="text-3xl"><NumberFormat value={User.bank_balance} thousandSeparator="." decimalSeparator="," displayType="text" suffix="€" defaultValue={0} fixedDecimalScale={true} decimalScale={2} /></h1>
+                        <h1 className="text-3xl">
+                            <NumberFormat value={User.bank_balance} thousandSeparator="." decimalSeparator="," displayType="text"
+                                          suffix="€" defaultValue={0} fixedDecimalScale={true} decimalScale={2} />
+                        </h1>
                         <p className="text-opacity-70 text-white mt-1">Current Account Balance</p>
                     </div>
                     <div className="flex-none self-center">
@@ -115,11 +127,11 @@ export default function UserDashboardPage() {
                 </div>
                 <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
                     <div className="flex-grow self-center">
-                        <h1 className="text-3xl">{latest_tour_status_text}</h1>
+                        <h1 className="text-3xl">{LogbookUtils.getJobStatusText(dashboardData["latest_tour_status"])}</h1>
                         <p className="text-opacity-70 text-white mt-1">Latest Tour Status</p>
                     </div>
                     <div className="flex-none self-center">
-                        {latest_tour_status_icon}
+                        {LogbookUtils.getJobStatusIcon(dashboardData["latest_tour_status"], "42px")}
                     </div>
                 </div>
                 <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
