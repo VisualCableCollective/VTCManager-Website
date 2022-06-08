@@ -4,24 +4,22 @@ import {Navbar} from "../components/Navbar";
 import {useState} from "react";
 import {Footer} from "../components/Footer";
 import {ToastContainer} from "react-toastify";
-import {AuthContextProvider} from "../contexts/AuthContext";
+import {AuthContextProvider, useAuth} from "../contexts/AuthContext";
 
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
+import {SideBar} from "../components/Sidebar";
+import {DefaultLayout} from "../layouts/DefaultLayout";
 
 function MyApp({ Component, pageProps }) {
-    const [isSigningOut, setIsSigningOut] = useState(false);
-
     return (
         <div className="App min-h-screen bg-dark-1 text-white">
             <PageLoaderContextProvider>
                 <MaintenanceChecker>
                     <AuthContextProvider>
-                        <Navbar isUserSigningOut={isSigningOut} />
-
-                        <Component {...pageProps} />
-
-                        <Footer />
+                        <DefaultLayout>
+                            <Component {...pageProps} />
+                        </DefaultLayout>
                     </AuthContextProvider>
                 </MaintenanceChecker>
             </PageLoaderContextProvider>

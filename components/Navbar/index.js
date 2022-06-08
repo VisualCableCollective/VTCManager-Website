@@ -17,7 +17,8 @@ export const Navbar = (props) => {
     let AuthButton = (
         <Link href="/login">
             <div className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
-                <Image className="mr-1 h-4" src={LoginIcon} alt=""/>Sign In
+                <Image className="h-4" src={LoginIcon} alt=""/>
+                <p className="ml-1">Sign In</p>
             </div>
         </Link>
     );
@@ -25,7 +26,8 @@ export const Navbar = (props) => {
         AuthButton = (
             <Link href="/logout">
                 <div className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
-                    <Image className="mr-1 h-4" src={LoginIcon} alt=""/>Sign Out
+                    <Image className="h-4" src={LoginIcon} alt=""/>
+                    <p className="ml-1">Sign Out</p>
                 </div>
             </Link>
         );
@@ -62,14 +64,14 @@ export const Navbar = (props) => {
                    href="/"><img className="mr-1 h-4" src={CalendarIcon} alt=""/>Events</a>*/}
                 <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center"
                    href="https://vcc-online.eu/">
-                    <Image className="mr-1 h-4" src={InformationCircleIcon} alt="Support"/>
-                    Support
+                    <Image className="h-4" src={InformationCircleIcon} alt="Support"/>
+                    <p className="ml-1">Support</p>
                 </a>
 
                 <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center"
                    href="https://status.vcc-online.eu/">
-                    <Image className="mr-1 h-4" src={ServerIcon} alt="Server Status"/>
-                    Server Status
+                    <Image className="h-4" src={ServerIcon} alt="Server Status"/>
+                    <p className="ml-1">Server Status</p>
                 </a>
                 {AuthButton}
             </div>
