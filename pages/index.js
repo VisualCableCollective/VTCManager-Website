@@ -19,7 +19,7 @@ export default function Home() {
     }, [router.query]);
 
   return (
-      <div className="page ayout={'fill'} objectFit={'contain'}">
+      <div className="page navbar-top-margin">
           <div
               className="vtcm-welcome-banner bg-gradient-to-b from-black to-gray-900 w-full text-white d-flex items-center flex-row text-center h-auto p-10">
               <div className="">
