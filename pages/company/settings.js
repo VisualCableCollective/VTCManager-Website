@@ -148,7 +148,7 @@ export default function CompanySettingsPage() {
                                         <div className="px-4 py-5 sm:p-6 bg-dark-4 shadow sm:rounded-lg">
                                             <div className="max-w-xl text-sm text-white">
                                                 Once your company is deleted, all of its resources and data will be
-                                                permanently deleted. This action can't be undone.
+                                                permanently deleted. This action can&apos;t be undone.
                                             </div>
 
                                             <div className="mt-5">
@@ -206,8 +206,8 @@ export default function CompanySettingsPage() {
                                     <div className="mt-5 md:mt-0 md:col-span-2">
                                         <div className="px-4 py-5 sm:p-6 bg-dark-4 shadow sm:rounded-lg">
                                             <div className="max-w-xl text-sm text-white">
-                                                Once you left the company, you won't be able to access all company-related pages, and you will lose your current position.
-                                                This action can't be undone, but you can apply at the company again at any time.
+                                                Once you left the company, you won&apos;t be able to access all company-related pages, and you will lose your current position.
+                                                This action can&apos;t be undone, but you can apply at the company again at any time.
                                             </div>
 
                                             <div className="mt-5">
