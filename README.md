@@ -1,43 +1,34 @@
-# VTCManager-Website
-This repository contains the source code for the [VTCManager website](https://vtcmanager.eu/). The website is based on the [React Javascript library](https://reactjs.org/) and interacts with the [VTCManager API](https://github.com/VisualCableCollective/VTCManager-API).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## About the VTCManager project
-VTCManager is a powerful job logger for the [Euro Truck Simulator 2 (ETS2)](https://eurotrucksimulator2.de/) and [American Truck Simulator (ATS)](https://americantrucksimulator.com/) by [SCS Software](https://scssoft.com/). It extends the gaming experience of ETS2 and ATS. In addition to the normal logging of orders for Virtual Trucking Companies (VTC), the software adds many other functions such as a convoy assistant, support for external electronic components (displays, microcomputers such as Raspberry Pi or Arduino for external speedometers, dashboards, and buttons) and much more.
+## Getting Started
 
-### VTCManager Project Status
-The latest version of the VTCManager is currently in public beta. The basic functions are functional, but may still contain errors.
+First, run the development server:
 
-## Additional packages used in this project
-- [Tailwind CSS](https://tailwindcss.com/): CSS Framework
-- [@craco/craco](https://www.npmjs.com/package/@craco/craco): Required by TailwindCSS
-- [react-router-dom](https://reactrouter.com/web/): Routing
-- [victory](https://formidable.com/open-source/victory/): Charting and data visualization
-- [react-number-format](https://www.npmjs.com/package/react-number-format): Easy number formating (for more human-readable numbers)
-- [react-paginate](https://www.npmjs.com/package/react-paginate): Pagination
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-## Available Scripts
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-In the project directory, you can run:
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-### `npm start`
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Learn More
 
-### `npm test`
+To learn more about Next.js, take a look at the following resources:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### `npm run build`
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deploy on Vercel
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
