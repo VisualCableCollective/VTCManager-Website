@@ -16,19 +16,19 @@ export const Navbar = (props) => {
 
     let AuthButton = (
         <Link href="/login">
-            <div className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
-                <Image className="h-4" src={LoginIcon} alt=""/>
+            <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
+                <Image width="18px" src={LoginIcon} alt=""/>
                 <p className="ml-1">Sign In</p>
-            </div>
+            </a>
         </Link>
     );
     if (auth.isAuthenticated)
         AuthButton = (
             <Link href="/logout">
-                <div className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
-                    <Image className="h-4" src={LoginIcon} alt=""/>
+                <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
+                    <Image width="18px" src={LoginIcon} alt=""/>
                     <p className="ml-1">Sign Out</p>
-                </div>
+                </a>
             </Link>
         );
     if (auth.isAuthenticating){
@@ -55,7 +55,7 @@ export const Navbar = (props) => {
 
                 <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center"
                    href="https://vcc-online.eu/redirect/discord">
-                    <div className="relative mr-1 h-6 w-6">
+                    <div className="relative mr-1 h-4 w-4">
                         <Image src={DiscordLogoWhite} alt="Discord" layout={'fill'} objectFit={'contain'}/>
                     </div>
                     Discord
@@ -64,13 +64,13 @@ export const Navbar = (props) => {
                    href="/"><img className="mr-1 h-4" src={CalendarIcon} alt=""/>Events</a>*/}
                 <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center"
                    href="https://vcc-online.eu/">
-                    <Image className="h-4" src={InformationCircleIcon} alt="Support"/>
+                    <Image width="18px" src={InformationCircleIcon} alt="Support"/>
                     <p className="ml-1">Support</p>
                 </a>
 
                 <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center"
                    href="https://status.vcc-online.eu/">
-                    <Image className="h-4" src={ServerIcon} alt="Server Status"/>
+                    <Image width="18px" src={ServerIcon} alt="Server Status"/>
                     <p className="ml-1">Server Status</p>
                 </a>
                 {AuthButton}
