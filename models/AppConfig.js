@@ -1,3 +1,3 @@
 export default class AppConfig {
-    static server_url = "http://localhost:8000/";
+    static server_url = "https://api.vtcmanager.eu/";
 }
