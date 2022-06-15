@@ -27,7 +27,7 @@ export default function CompanyLogbookPage() {
     }
 
     function loadData() {
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyLogbook, "page=" + currentPage), { headers: new Headers({'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json'})})
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyLogbook, "page=" + currentPage), { headers: new Headers({'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json'})})
             .then(res => res.json())
             .then(
                 (result) => {

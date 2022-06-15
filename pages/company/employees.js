@@ -19,7 +19,7 @@ export default function CompanyEmployeesPage() {
     function loadData() {
         setLoading(true);
 
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyEmployees, "page=" + currentPage), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyEmployees, "page=" + currentPage), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {
@@ -36,7 +36,7 @@ export default function CompanyEmployeesPage() {
         let kickButton = document.getElementById("kick-employee-button-" + userID);
         kickButton.disabled = true;
 
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyKickEmployee, "", userID), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyKickEmployee, "", userID), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(function (response) {
                 if (response.status !== 200) {
                     kickButton.disabled = false;

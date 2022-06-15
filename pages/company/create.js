@@ -13,7 +13,7 @@ export default function CreateCompanyPage() {
         let url = AppConfig.server_url + 'api/company/create';
         fetch(url, {
             method: "post",
-            headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type':'application/json' }),
+            headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type':'application/json' }),
             body: JSON.stringify({
                 "company_name": companyName
             }),

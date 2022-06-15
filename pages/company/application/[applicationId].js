@@ -22,7 +22,7 @@ export default function CompanyApplicationReviewPage() {
 
         const requestOptions = {
             method: 'POST',
-            headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type': 'application/json' })
+            headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type': 'application/json' })
         };
 
         let thisComponent = this;
@@ -62,7 +62,7 @@ export default function CompanyApplicationReviewPage() {
         setDisableButtons(true);
         const requestOptions = {
             method: 'POST',
-            headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type': 'application/json' })
+            headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type': 'application/json' })
         };
 
         let thisComponent = this;

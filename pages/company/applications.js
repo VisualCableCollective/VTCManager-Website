@@ -23,7 +23,7 @@ export default function CompanyApplicationsPage() {
     function loadData() {
         setLoading(true);
 
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyApplications, "page=" + currentPage), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyApplications, "page=" + currentPage), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {
