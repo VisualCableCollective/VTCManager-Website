@@ -27,7 +27,7 @@ export function AuthContextProvider(props) {
     };
 
     function checkAuth() {
-        if (!sessionStorage.getItem('authtoken'))
+        if (!localStorage.getItem('authtoken'))
             return;
 
         setIsAuthenticating(true);
@@ -45,7 +45,7 @@ export function AuthContextProvider(props) {
 
         let url = AppConfig.server_url + 'api/webapp/check';
 
-        fetch(url, { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(url, { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {
@@ -85,7 +85,7 @@ export function AuthContextProvider(props) {
                             progress: undefined,
                             toastId: "restoring-session-success",
                         })
-                        sessionStorage.removeItem("authtoken")
+                        localStorage.removeItem("authtoken")
                     }
                     setIsAuthenticating(false)
                 },
@@ -108,11 +108,11 @@ export function AuthContextProvider(props) {
     async function logout() {
         let url = AppConfig.server_url + 'api/auth/web-app/logout';
 
-        let res = await fetch(url, { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) });
+        let res = await fetch(url, { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) });
         res = await res.json();
         if (res.message === "OK") {
             setIsAuthenticated(false);
-            sessionStorage.removeItem("authtoken");
+            localStorage.removeItem("authtoken");
             toast.success('You have been logged out successfully!', {
                 position: "bottom-right",
                 autoClose: 5000,
