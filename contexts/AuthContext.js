@@ -8,7 +8,8 @@ export const AuthContext = createContext({
     isAuthenticated: false,
     isRedirectingToLogin: false,
     checkAuth: () => {},
-    setIsRedirectingToLogin: () => {}
+    setIsRedirectingToLogin: () => {},
+    logout: () => {}
 });
 
 export function AuthContextProvider(props) {
@@ -17,11 +18,12 @@ export function AuthContextProvider(props) {
     const [isRedirectingToLogin, setIsRedirectingToLogin] = useState(false);
 
     const context = {
-        checkAuth: checkAuth,
+        checkAuth,
         isAuthenticating,
         isAuthenticated,
         isRedirectingToLogin,
-        setIsRedirectingToLogin
+        setIsRedirectingToLogin,
+        logout
     };
 
     function checkAuth() {
@@ -101,6 +103,38 @@ export function AuthContextProvider(props) {
                     setIsAuthenticating(false)
                 }
             )
+    }
+
+    async function logout() {
+        let url = AppConfig.server_url + 'api/auth/web-app/logout';
+
+        let res = await fetch(url, { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) });
+        res = await res.json();
+        if (res.message === "OK") {
+            setIsAuthenticated(false);
+            sessionStorage.removeItem("authtoken");
+            toast.success('You have been logged out successfully!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                toastId: "logout-success",
+            });
+        } else {
+            toast.error('Sorry, but we couldn\'t log you out.', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                toastId: "logout-failed",
+            })
+        }
     }
 
     useEffect(() => {
