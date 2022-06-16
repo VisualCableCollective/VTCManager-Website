@@ -25,7 +25,7 @@ export default function CompanyApplicationReviewPage() {
             headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type': 'application/json' })
         };
 
-        let thisComponent = this;
+
         fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyAcceptApplication, "", application_id), requestOptions)
             .then(function(response) {
                 if(response.status !== 204){
@@ -39,12 +39,10 @@ export default function CompanyApplicationReviewPage() {
                         progress: undefined,
                         toastId: "accept-application-error",
                     });
-                    thisComponent.setState({
-                        disableButtons: false,
-                    });
+                    setDisableButtons(false);
                     return response.json();
                 }
-                thisComponent.componentDidMount();
+                loadData()
             })
             .then(
                 (result) => {
@@ -65,7 +63,6 @@ export default function CompanyApplicationReviewPage() {
             headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type': 'application/json' })
         };
 
-        let thisComponent = this;
         fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyDeclineApplication, "", application_id), requestOptions)
             .then(function(response) {
                 if(response.status !== 204){
@@ -79,12 +76,10 @@ export default function CompanyApplicationReviewPage() {
                         progress: undefined,
                         toastId: "decline-application-error",
                     });
-                    thisComponent.setState({
-                        disableButtons: false,
-                    });
+                    setDisableButtons(false);
                     return response.json();
                 }
-                thisComponent.componentDidMount();
+                loadData();
                 toast.success('The application was successfully declined!', {
                     position: "bottom-right",
                     autoClose: 5000,
@@ -111,6 +106,10 @@ export default function CompanyApplicationReviewPage() {
             return;
         }
 
+        loadData();
+    }, [])
+
+    function loadData() {
         fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyApplication, "", application_id), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
@@ -126,7 +125,7 @@ export default function CompanyApplicationReviewPage() {
                 (error) => {
                 }
             )
-    }, [])
+    }
 
     return (
         <div className="page-wrapper p-6 navbar-top-margin">
