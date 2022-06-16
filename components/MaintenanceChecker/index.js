@@ -1,9 +1,15 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import {usePageLoader} from "../../contexts/PageLoaderContext";
 
 export function MaintenanceChecker({children}) {
     const [isInMaintenanceMode, setIsInMaintenanceMode] = useState(false);
+    const maintenanceRef = useRef(false);
+
+    useEffect(() => {
+        maintenanceRef.current = isInMaintenanceMode;
+    }, [isInMaintenanceMode])
+
     const pageLoader = usePageLoader();
 
     function checkMaintenance() {
@@ -17,10 +23,13 @@ export function MaintenanceChecker({children}) {
             .then(
                 (result) => {
                     if (!result["WebApp"]["operational"]) {
-                        if (!isInMaintenanceMode)
+                        if (!maintenanceRef.current){
+                            console.log("set mode")
                             setIsInMaintenanceMode(true);
+                        }
                     } else {
-                        if (isInMaintenanceMode) {
+                        if (maintenanceRef.current) {
+                            console.log("Reloading app")
                             window.location.reload(); //reload app if app files changed
                         }
                     }
