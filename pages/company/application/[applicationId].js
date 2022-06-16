@@ -111,7 +111,7 @@ export default function CompanyApplicationReviewPage() {
             return;
         }
 
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyApplication, "", application_id), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyApplication, "", application_id), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {
