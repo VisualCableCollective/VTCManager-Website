@@ -5,6 +5,7 @@ import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import Link from "next/link";
 import {LogbookUtils} from "../../utils/LogbookUtils";
 import User from "../../models/User";
+import {NoJobsInfo} from "../../components/logbook/NoJobsInfo";
 
 export default function CompanyDashboardPage() {
     const [dashboardData, setDashboardData] = useState([]);
@@ -110,10 +111,9 @@ export default function CompanyDashboardPage() {
                         <th className="px-5 py-1"></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {tableContent}
-                    </tbody>
+                    {tableContent.length > 0 && <tbody>tableContent</tbody>}
                 </table>
+                {tableContent.length < 1 && <NoJobsInfo />}
             </div>
         </div>
     )
