@@ -5,12 +5,13 @@ import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import Link from "next/link";
 import {LogbookUtils} from "../../utils/LogbookUtils";
 import User from "../../models/User";
+import {NoJobsInfo} from "../../components/logbook/NoJobsInfo";
 
 export default function CompanyDashboardPage() {
     const [dashboardData, setDashboardData] = useState([]);
 
     useEffect(() => {
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyDashboard), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyDashboard), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {
@@ -110,10 +111,9 @@ export default function CompanyDashboardPage() {
                         <th className="px-5 py-1"></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {tableContent}
-                    </tbody>
+                    {tableContent.length > 0 && <tbody>tableContent</tbody>}
                 </table>
+                {tableContent.length < 1 && <NoJobsInfo />}
             </div>
         </div>
     )

@@ -1,10 +1,16 @@
 import {useEffect} from "react";
+import {useAuth} from "../contexts/AuthContext";
+import {useRouter} from "next/router";
 
 export default function LogoutPage() {;
+    const auth = useAuth();
+    const router = useRouter();
 
     useEffect(() => {
-        sessionStorage.removeItem("authtoken")
-        window.location.href = "/";
+        auth.logout()
+            .then(() => {
+                router.push("/");
+            })
     }, []);
 
     return (

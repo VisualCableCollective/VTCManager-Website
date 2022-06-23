@@ -24,7 +24,7 @@ export default function CompaniesSearchPage() {
 
     function loadData() {
         setLoading(true);
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanySearch, "page=" + currentPage + "&q=" + companyName), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanySearch, "page=" + currentPage + "&q=" + companyName), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {
@@ -83,7 +83,7 @@ export default function CompaniesSearchPage() {
 
         const requestOptions = {
             method: 'POST',
-            headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type': 'application/json' }),
+            headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json', 'Content-Type': 'application/json' }),
             body: JSON.stringify({ application_text: applyModalDescriptionContent })
         };
 

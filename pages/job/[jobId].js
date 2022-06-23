@@ -31,7 +31,7 @@ export default function JobPage() {
     let job_id = router.query.jobId;
 
     useEffect(() => {
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.GetJobData, "", job_id), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.GetJobData, "", job_id), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {

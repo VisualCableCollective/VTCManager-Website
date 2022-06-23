@@ -14,7 +14,7 @@ export default function Home() {
         // OAuth token callback
         let tokenRequestParameter = router.query.token;
         if (tokenRequestParameter) {
-            sessionStorage.setItem('authtoken', tokenRequestParameter);
+            localStorage.setItem('authtoken', tokenRequestParameter);
             auth.checkAuth();
         }
     }, [router.query]);

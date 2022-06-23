@@ -13,7 +13,7 @@ export default function CompanySettingsPage() {
         if (isDeletingCompany)
             return;
         setIsDeletingCompany(true);
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.DeleteCompany), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }), method: 'DELETE', })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.DeleteCompany), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }), method: 'DELETE', })
             .then(function (result) {
                 if (result.status === 204) {
                     toast.success("Your company has been deleted successfully!", {
@@ -52,7 +52,7 @@ export default function CompanySettingsPage() {
         setIsRenamingCompany(true);
         fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.RenameCompany),
             {
-                headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Content-Type': 'application/json', 'Accept': 'application/json' }), method: 'POST',
+                headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Content-Type': 'application/json', 'Accept': 'application/json' }), method: 'POST',
                 body: JSON.stringify({ new_company_name: newCompanyNameInputValue }),
             })
             .then(function (result) {
@@ -88,7 +88,7 @@ export default function CompanySettingsPage() {
         if (isLeavingCompany)
             return;
         setIsLeavingCompany(true);
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.LeaveCompany), { headers: new Headers({ 'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'), 'Accept': 'application/json' }), method: 'DELETE', })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.LeaveCompany), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }), method: 'DELETE', })
             .then(function (result) {
                 if (result.status === 204) {
                     toast.success("You have left the company successfully!", {

@@ -16,7 +16,7 @@ export default function UserDashboardPage() {
         let options = {
             headers: new Headers(
                 {
-                'Authorization': 'Bearer ' + sessionStorage.getItem('authtoken'),
+                'Authorization': 'Bearer ' + localStorage.getItem('authtoken'),
                 'Accept': 'application/json'
                 })
         };
