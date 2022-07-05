@@ -111,7 +111,7 @@ export default function CompanyDashboardPage() {
                         <th className="px-5 py-1"></th>
                     </tr>
                     </thead>
-                    {tableContent.length > 0 && <tbody>tableContent</tbody>}
+                    {tableContent.length > 0 && <tbody>{tableContent}</tbody>}
                 </table>
                 {tableContent.length < 1 && <NoJobsInfo />}
             </div>
