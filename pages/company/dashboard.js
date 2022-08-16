@@ -113,7 +113,7 @@ export default function CompanyDashboardPage() {
                     </thead>
                     {tableContent.length > 0 && <tbody>{tableContent}</tbody>}
                 </table>
-                {tableContent.length < 1 && <NoJobsInfo />}
+                {tableContent.length < 1 && <NoJobsInfo variant="company" />}
             </div>
         </div>
     )

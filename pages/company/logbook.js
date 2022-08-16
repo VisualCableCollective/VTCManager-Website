@@ -6,6 +6,7 @@ import Link from "next/link";
 import ReactPaginate from "react-paginate";
 import User from "../../models/User";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
+import {NoJobsInfo} from "../../components/logbook/NoJobsInfo";
 
 export default function CompanyLogbookPage() {
     const router = useRouter();
@@ -75,7 +76,7 @@ export default function CompanyLogbookPage() {
             );
         });
         response = (
-            <div className="">
+            <div>
                 <table className="mt-5 table-auto w-full">
                     <thead>
                     <tr key="thead-logbook" className="border-t border-b border-white border-opacity-40">
@@ -94,37 +95,40 @@ export default function CompanyLogbookPage() {
                     {tableContent}
                     </tbody>
                 </table>
-                <div className={"flex justify-center mt-4"}>
-                    <ReactPaginate
-                        onPageChange={handlePageClick}
-                        initialPage={serverResponse["current_page"]-1}
-                        disableInitialCallback={true}
-                        pageCount={serverResponse["last_page"]}
-                        pageRangeDisplayed={3}
-                        marginPagesDisplayed={2}
-                        containerClassName={"relative z-0 inline-flex shadow-sm -space-x-px pt-5"}
-                        pageClassName={"relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"}
-                        previousLabel={<div><span className="sr-only">Previous</span>
-                            <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                 fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd"
-                                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                      clipRule="evenodd"/>
-                            </svg></div>}
-                        previousClassName={"relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"}
-                        nextLabel={<div>
-                            <span className="sr-only">Next</span>
-                            <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                 fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd"
-                                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                      clipRule="evenodd"/>
-                            </svg>
-                        </div>}
-                        nextClassName={"relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"}
-                        breakLabel={<span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>}
-                    />
-                </div>
+                {tableContent.length < 1 && <NoJobsInfo variant="company" />}
+                {tableContent.length > 1 &&
+                    <div className={"flex justify-center mt-4 mb-8"}>
+                        <ReactPaginate
+                            onPageChange={handlePageClick}
+                            initialPage={serverResponse["current_page"]-1}
+                            disableInitialCallback={true}
+                            pageCount={serverResponse["last_page"]}
+                            pageRangeDisplayed={3}
+                            marginPagesDisplayed={2}
+                            containerClassName={"relative z-0 inline-flex shadow-sm -space-x-px pt-5"}
+                            pageClassName={"relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"}
+                            previousLabel={<div><span className="sr-only">Previous</span>
+                                <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                     fill="currentColor" aria-hidden="true">
+                                    <path fillRule="evenodd"
+                                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                          clipRule="evenodd"/>
+                                </svg></div>}
+                            previousClassName={"relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"}
+                            nextLabel={<div>
+                                <span className="sr-only">Next</span>
+                                <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                     fill="currentColor" aria-hidden="true">
+                                    <path fillRule="evenodd"
+                                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                          clipRule="evenodd"/>
+                                </svg>
+                            </div>}
+                            nextClassName={"relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"}
+                            breakLabel={<span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>}
+                        />
+                    </div>
+                }
             </div>
         );
     }
@@ -132,7 +136,7 @@ export default function CompanyLogbookPage() {
     return (
         (<div className="p-6 navbar-top-margin">
             <div className="mx-auto sm:px-6 lg:px-8 bg-dark-3 rounded w-full">
-                <div className="overflow-hidden shadow-xl sm:rounded-lg px-5 py-8">
+                <div className="overflow-hidden shadow-xl sm:rounded-lg px-5 pt-8">
                     <h1 className="font-bold text-3xl text-center mb-7">{User.company_data ? User.company_data["name"] : ""}: Logbook</h1>
                     {response}
                 </div>

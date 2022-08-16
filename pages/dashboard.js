@@ -7,6 +7,7 @@ import {LogbookUtils} from "../utils/LogbookUtils";
 
 import {FaClipboardCheck, FaTruck, FaCoins, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaCircle} from "react-icons/fa";
 import Log from "tailwindcss/lib/util/log";
+import {NoJobsInfo} from "../components/logbook/NoJobsInfo";
 
 export default function UserDashboardPage() {
     const [dashboardData, setDashboardData] = useState([]);
@@ -163,6 +164,7 @@ export default function UserDashboardPage() {
                     {tableContent}
                     </tbody>
                 </table>
+                {tableContent.length < 1 && <NoJobsInfo variant="user" />}
             </div>
         </div>
     );
