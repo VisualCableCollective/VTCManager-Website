@@ -56,7 +56,7 @@ export default function CompanyLogbookPage() {
         );
     } else {
         let tableContent = [];
-        items.forEach(element => {
+        items?.forEach(element => {
             tableContent.push(
                 <tr key={"logbook-entry-" + element.id} className="border-t border-b border-white border-opacity-40">
                     <td className="px-5 text-center py-2">{element.id || "n/a"}</td>
@@ -96,7 +96,7 @@ export default function CompanyLogbookPage() {
                     </tbody>
                 </table>
                 {tableContent.length < 1 && <NoJobsInfo variant="company" />}
-                {tableContent.length > 1 &&
+                {tableContent.length > 0 &&
                     <div className={"flex justify-center mt-4 mb-8"}>
                         <ReactPaginate
                             onPageChange={handlePageClick}

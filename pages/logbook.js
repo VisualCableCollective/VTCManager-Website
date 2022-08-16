@@ -96,7 +96,7 @@ export default function LogbookPage() {
                     </tbody>
                 </table>
                 {tableContent.length < 1 && <NoJobsInfo variant="user" />}
-                {tableContent.length > 1 &&
+                {tableContent.length > 0 &&
                     <div className={"flex justify-center mt-4"}>
                         <ReactPaginate
                             onPageChange={handlePageClick}
