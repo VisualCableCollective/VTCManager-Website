@@ -5,6 +5,7 @@ import {useState} from "react";
 import {Footer} from "../components/Footer";
 import {ToastContainer} from "react-toastify";
 import {AuthContextProvider, useAuth} from "../contexts/AuthContext";
+import Script from "next/script";
 
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,6 +35,15 @@ function MyApp({ Component, pageProps }) {
                 pauseOnHover
                 theme="dark"
             />
+            <Script 
+            id="google-adsense"
+            async
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3288402026194745"
+            onError={(e) => {
+                console.error('Google Adsense Script failed to load', e)
+            }} />
         </div>
     )
 }
