@@ -3715,6 +3715,11 @@ v8-compile-cache@^2.0.3:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
   integrity sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==
 
+vanilla-cookieconsent@^2.8.5:
+  version "2.8.5"
+  resolved "https://registry.yarnpkg.com/vanilla-cookieconsent/-/vanilla-cookieconsent-2.8.5.tgz#adb2f5764a44d3b07d4eeb4a4f6718141b99d4ea"
+  integrity sha512-GZeAjOnvpQXTXQ99F/4lmB+DZkwSQU7aSRazcwlVPx8GZHG/ieKc+hh8nbBoWQYq+SCz5LkbXdB3IUWKgHZBqA==
+
 victory-area@^36.6.0:
   version "36.6.0"
   resolved "https://registry.yarnpkg.com/victory-area/-/victory-area-36.6.0.tgz#86c5371a84e77b11b15c8c724a58b253a2580b6b"
