@@ -6,6 +6,8 @@ import Link from "next/link";
 import {LogbookUtils} from "../../utils/LogbookUtils";
 import User from "../../models/User";
 import {NoJobsInfo} from "../../components/logbook/NoJobsInfo";
+import {Breadcrumbs, Typography} from "@mui/material";
+import {DashItem} from "../../components/DashItem";
 
 export default function CompanyDashboardPage() {
     const [dashboardData, setDashboardData] = useState([]);
@@ -46,11 +48,14 @@ export default function CompanyDashboardPage() {
 
     return (
         <div className="page-wrapper p-6 navbar-top-margin">
-            <div className="w-full bg-dark-3 rounded p-5 mb-6">
-                <h1 className="text-3xl text-center font-bold">{User.company_data["name"]}: Dashboard</h1>
-            </div>
+            <DashItem>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Typography color="inherit">{User.company_data["name"]}</Typography>
+                    <Typography color="text.primary">Dashboard</Typography>
+                </Breadcrumbs>
+            </DashItem>
             <div className="top-stats-overview-wrapper w-full grid gap-6 sm:grid-cols-5">
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
+                <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
                     <div className="flex-grow self-center">
                         <h1 className="text-3xl">{dashboardData["jobs_delivered_total"] || "-"}</h1>
                         <p className="text-opacity-70 text-white mt-1">Jobs delivered (Total)</p>
@@ -58,8 +63,8 @@ export default function CompanyDashboardPage() {
                     <div className="flex-none self-center">
                         <FaClipboardCheck size="42px" />
                     </div>
-                </div>
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
+                </DashItem>
+                <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
                     <div className="flex-grow self-center">
                         <h1 className="text-3xl">{dashboardData["jobs_delivered_7_days"] || "-"}</h1>
                         <p className="text-opacity-70 text-white mt-1">Jobs delivered<br />(Last 7 Days)</p>
@@ -67,8 +72,8 @@ export default function CompanyDashboardPage() {
                     <div className="flex-none self-center">
                         <FaTruck size="42px" />
                     </div>
-                </div>
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
+                </DashItem>
+                <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
                     <div className="flex-grow self-center">
                         <h1 className="text-3xl"><NumberFormat value={dashboardData["bank_balance"]} thousandSeparator="." decimalSeparator="," displayType="text" suffix="€" defaultValue={0} fixedDecimalScale={true} decimalScale={2} /></h1>
                         <p className="text-opacity-70 text-white mt-1">Current Account Balance</p>
@@ -76,8 +81,8 @@ export default function CompanyDashboardPage() {
                     <div className="flex-none self-center">
                         <FaCoins size="42px" />
                     </div>
-                </div>
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
+                </DashItem>
+                <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
                     <div className="flex-grow self-center">
                         <h1 className="text-3xl">{dashboardData["employees_total"]}</h1>
                         <p className="text-opacity-70 text-white mt-1">Employees</p>
@@ -85,8 +90,8 @@ export default function CompanyDashboardPage() {
                     <div className="flex-none self-center">
                         <FaUsers size="42px" />
                     </div>
-                </div>
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
+                </DashItem>
+                <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
                     <div className="flex-grow self-center">
                         <h1 className="text-3xl">{dashboardData["employees_online"]}</h1>
                         <p className="text-opacity-70 text-white mt-1">Employees Online (Desktop Client)</p>
@@ -94,7 +99,7 @@ export default function CompanyDashboardPage() {
                     <div className="flex-none self-center">
                         <FaSignal size="42px" color="#24f23c" />
                     </div>
-                </div>
+                </DashItem>
             </div>
             <div className="w-full bg-dark-3 rounded p-5 my-6">
                 <h1 className="font-bold text-3xl text-center mb-5">The latest 5 tours in this company</h1>

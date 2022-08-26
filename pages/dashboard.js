@@ -8,6 +8,8 @@ import {LogbookUtils} from "../utils/LogbookUtils";
 import {FaClipboardCheck, FaTruck, FaCoins, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaCircle} from "react-icons/fa";
 import Log from "tailwindcss/lib/util/log";
 import {NoJobsInfo} from "../components/logbook/NoJobsInfo";
+import {Box, Breadcrumbs, Paper, Typography} from "@mui/material";
+import {DashItem} from "../components/DashItem";
 
 export default function UserDashboardPage() {
     const [dashboardData, setDashboardData] = useState([]);
@@ -95,59 +97,67 @@ export default function UserDashboardPage() {
 
     return (
         <div className="page-wrapper p-6 navbar-top-margin">
-            <div className="top-stats-overview-wrapper w-full grid gap-6 sm:grid-cols-5">
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
-                    <div className="flex-grow self-center">
-                        <h1 className="text-3xl">{dashboardData["jobs_delivered_total"] || "-"}</h1>
-                        <p className="text-opacity-70 text-white mt-1">Jobs delivered (Total)</p>
-                    </div>
-                    <div className="flex-none self-center">
-                        <FaClipboardCheck size="42px" />
-                    </div>
-                </div>
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
-                    <div className="flex-grow self-center">
-                        <h1 className="text-3xl">{dashboardData["jobs_delivered_7_days"] || "-"}</h1>
-                        <p className="text-opacity-70 text-white mt-1">Jobs delivered<br />(Last 7 Days)</p>
-                    </div>
-                    <div className="flex-none self-center">
-                        <FaTruck size="42px" />
-                    </div>
-                </div>
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
-                    <div className="flex-grow self-center">
-                        <h1 className="text-3xl">
-                            <NumberFormat value={User.bank_balance} thousandSeparator="." decimalSeparator="," displayType="text"
-                                          suffix="€" defaultValue={0} fixedDecimalScale={true} decimalScale={2} />
-                        </h1>
-                        <p className="text-opacity-70 text-white mt-1">Current Account Balance</p>
-                    </div>
-                    <div className="flex-none self-center">
-                        <FaCoins size="42px" />
-                    </div>
-                </div>
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
-                    <div className="flex-grow self-center">
-                        <h1 className="text-3xl">{LogbookUtils.getJobStatusText(dashboardData["latest_tour_status"])}</h1>
-                        <p className="text-opacity-70 text-white mt-1">Latest Tour Status</p>
-                    </div>
-                    <div className="flex-none self-center">
-                        {LogbookUtils.getJobStatusIcon(dashboardData["latest_tour_status"], "42px")}
-                    </div>
-                </div>
-                <div className="stats-card rounded h-28 w-full bg-dark-3 p-5 flex">
-                    <div className="flex-grow self-center">
-                        <h1 className="text-xl">{online_status_text}</h1>
-                        <p className="text-opacity-70 text-white mt-1">Online Status</p>
-                    </div>
-                    <div className="flex-none self-center">
-                        {online_status_icon}
-                    </div>
-                </div>
-            </div>
-            <div className="w-full bg-dark-3 rounded p-5 my-6">
+            <DashItem>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Typography color="inherit">{User.username}</Typography>
+                    <Typography color="text.primary">Dashboard</Typography>
+                </Breadcrumbs>
+            </DashItem>
+           <DashItem transparent={true} padding={0}>
+               <div className="top-stats-overview-wrapper w-full grid gap-6 sm:grid-cols-5">
+                   <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
+                       <div className="flex-grow self-center">
+                           <h1 className="text-3xl">{dashboardData["jobs_delivered_total"] || "-"}</h1>
+                           <p className="text-opacity-70 text-white mt-1">Jobs delivered (Total)</p>
+                       </div>
+                       <div className="flex-none self-center">
+                           <FaClipboardCheck size="42px" />
+                       </div>
+                   </DashItem>
+                   <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
+                       <div className="flex-grow self-center">
+                           <h1 className="text-3xl">{dashboardData["jobs_delivered_7_days"] || "-"}</h1>
+                           <p className="text-opacity-70 text-white mt-1">Jobs delivered<br />(Last 7 Days)</p>
+                       </div>
+                       <div className="flex-none self-center">
+                           <FaTruck size="42px" />
+                       </div>
+                   </DashItem>
+                   <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
+                       <div className="flex-grow self-center">
+                           <h1 className="text-3xl">
+                               <NumberFormat value={User.bank_balance} thousandSeparator="." decimalSeparator="," displayType="text"
+                                             suffix=" €" defaultValue={0} fixedDecimalScale={true} decimalScale={2} />
+                           </h1>
+                           <p className="text-opacity-70 text-white mt-1">Current Account Balance</p>
+                       </div>
+                       <div className="flex-none self-center">
+                           <FaCoins size="42px" />
+                       </div>
+                   </DashItem>
+                   <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
+                       <div className="flex-grow self-center">
+                           <h1 className="text-3xl">{LogbookUtils.getJobStatusText(dashboardData["latest_tour_status"])}</h1>
+                           <p className="text-opacity-70 text-white mt-1">Latest Tour Status</p>
+                       </div>
+                       <div className="flex-none self-center">
+                           {LogbookUtils.getJobStatusIcon(dashboardData["latest_tour_status"], "42px")}
+                       </div>
+                   </DashItem>
+                   <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
+                       <div className="flex-grow self-center">
+                           <h1 className="text-xl">{online_status_text}</h1>
+                           <p className="text-opacity-70 text-white mt-1">Online Status</p>
+                       </div>
+                       <div className="flex-none self-center">
+                           {online_status_icon}
+                       </div>
+                   </DashItem>
+               </div>
+           </DashItem>
+            <DashItem>
                 <h1 className="font-bold text-3xl text-center mb-5">Your 5 Latest Tours</h1>
-                <table className="5-latest-tours-table table-auto w-full bg-dark-3 rounded p-5">
+                <table className="5-latest-tours-table table-auto w-full rounded p-5">
                     <thead>
                     <tr key="thead-logbook" className="border-t border-b border-white border-opacity-40">
                         <th className="px-5 py-1">ID</th>
@@ -165,7 +175,7 @@ export default function UserDashboardPage() {
                     </tbody>
                 </table>
                 {tableContent.length < 1 && <NoJobsInfo variant="user" />}
-            </div>
+            </DashItem>
         </div>
     );
 }

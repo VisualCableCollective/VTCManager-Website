@@ -12,19 +12,29 @@ import 'react-toastify/dist/ReactToastify.css';
 import {SideBar} from "../components/Sidebar";
 import {DefaultLayout} from "../layouts/DefaultLayout";
 import CookieConsent from "../components/CookieConsent";
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+
+const theme = createTheme({
+    palette: {
+        mode: 'dark',
+    },
+});
 
 function MyApp({ Component, pageProps }) {
     return (
         <div className="App min-h-screen bg-dark-1 text-white">
-            <PageLoaderContextProvider>
-                <MaintenanceChecker>
-                    <AuthContextProvider>
-                        <DefaultLayout>
-                            <Component {...pageProps} />
-                        </DefaultLayout>
-                    </AuthContextProvider>
-                </MaintenanceChecker>
-            </PageLoaderContextProvider>
+            <ThemeProvider theme={theme}>
+                <PageLoaderContextProvider>
+                    <MaintenanceChecker>
+                        <AuthContextProvider>
+                            <DefaultLayout>
+                                <Component {...pageProps} />
+                            </DefaultLayout>
+                        </AuthContextProvider>
+                    </MaintenanceChecker>
+                </PageLoaderContextProvider>
+                <CssBaseline />
+            </ThemeProvider>
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

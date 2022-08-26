@@ -6,6 +6,9 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../utils/HTTPRequestUtils";
 import {NoJobsInfo} from "../components/logbook/NoJobsInfo";
+import {Breadcrumbs, Typography} from "@mui/material";
+import User from "../models/User";
+import {DashItem} from "../components/DashItem";
 
 export default function LogbookPage() {
     const router = useRouter();
@@ -135,12 +138,17 @@ export default function LogbookPage() {
 
     return (
         <div className="p-6 navbar-top-margin">
-            <div className="mx-auto sm:px-6 lg:px-8 bg-dark-3 rounded w-full">
-                <div className="overflow-hidden shadow-xl sm:rounded-lg px-5 py-8">
-                    <h1 className="font-bold text-3xl text-center mb-7">Logbook</h1>
+            <DashItem>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Typography color="inherit">{User.username}</Typography>
+                    <Typography color="text.primary">Logbook</Typography>
+                </Breadcrumbs>
+            </DashItem>
+            <DashItem mb={0}>
+                <div className="overflow-hidden">
                     {response}
                 </div>
-            </div>
+            </DashItem>
         </div>
-    )
+    ) // overflow-hidden shadow-xl sm:rounded-lg px-5 py-8
 }
