@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../utils/HTTPRequestUtils";
 import {NoJobsInfo} from "../components/logbook/NoJobsInfo";
-import {Breadcrumbs, Typography} from "@mui/material";
+import {Breadcrumbs, Grow, Typography} from "@mui/material";
 import User from "../models/User";
 import {DashItem} from "../components/DashItem";
 
@@ -80,9 +80,9 @@ export default function LogbookPage() {
         });
         response = (
             <div>
-                <table className="mt-5 table-auto w-full">
+                <table className="table-auto w-full">
                     <thead>
-                    <tr key="thead-logbook" className="border-t border-b border-white border-opacity-40">
+                    <tr key="thead-logbook" className="border-b border-white border-opacity-40">
                         <th className="px-5 py-1">ID</th>
                         <th className="px-5 py-1">Departure</th>
                         <th className="px-5 py-1">Destination</th>

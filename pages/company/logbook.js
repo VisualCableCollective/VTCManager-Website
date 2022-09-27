@@ -7,6 +7,8 @@ import ReactPaginate from "react-paginate";
 import User from "../../models/User";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import {NoJobsInfo} from "../../components/logbook/NoJobsInfo";
+import {DashItem} from "../../components/DashItem";
+import {Breadcrumbs, Typography} from "@mui/material";
 
 export default function CompanyLogbookPage() {
     const router = useRouter();
@@ -77,9 +79,9 @@ export default function CompanyLogbookPage() {
         });
         response = (
             <div>
-                <table className="mt-5 table-auto w-full">
+                <table className="table-auto w-full">
                     <thead>
-                    <tr key="thead-logbook" className="border-t border-b border-white border-opacity-40">
+                    <tr key="thead-logbook" className="border-b border-white border-opacity-40">
                         <th className="px-5 py-1">ID</th>
                         <th className="px-5 py-1">Departure</th>
                         <th className="px-5 py-1">Destination</th>
@@ -97,7 +99,7 @@ export default function CompanyLogbookPage() {
                 </table>
                 {tableContent.length < 1 && <NoJobsInfo variant="company" />}
                 {tableContent.length > 0 &&
-                    <div className={"flex justify-center mt-4 mb-8"}>
+                    <div className={"flex justify-center mt-4"}>
                         <ReactPaginate
                             onPageChange={handlePageClick}
                             initialPage={serverResponse["current_page"]-1}
@@ -135,12 +137,17 @@ export default function CompanyLogbookPage() {
 
     return (
         (<div className="p-6 navbar-top-margin">
-            <div className="mx-auto sm:px-6 lg:px-8 bg-dark-3 rounded w-full">
-                <div className="overflow-hidden shadow-xl sm:rounded-lg px-5 pt-8">
-                    <h1 className="font-bold text-3xl text-center mb-7">{User.company_data ? User.company_data["name"] : ""}: Logbook</h1>
+            <DashItem>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Typography color="inherit">{User.company_data["name"]}</Typography>
+                    <Typography color="text.primary">Logbook</Typography>
+                </Breadcrumbs>
+            </DashItem>
+            <DashItem mb={0}>
+                <div className="overflow-hidden">
                     {response}
                 </div>
-            </div>
+            </DashItem>
         </div>)
     );
 }
