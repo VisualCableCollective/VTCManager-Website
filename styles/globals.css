@@ -75,3 +75,7 @@
         transform: translate(24px, 0);
     }
 }
+
+:root {
+    --cc-overlay-bg: rgba(4,6,8,.45) !important;
+}

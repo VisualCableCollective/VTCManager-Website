@@ -52,6 +52,8 @@ export function AuthContextProvider(props) {
                     if (result["id"]) {
                         //store bank balance
                         User.ID = result["id"];
+                        User.username = result["VCC_User"]["username"];
+                        console.log(User.username);
                         User.bank_balance = result["bank_balance"];
                         User.company_data = result["company"];
                         toast.success('You have been logged in successfully!', {

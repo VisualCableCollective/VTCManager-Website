@@ -1,5 +1,6 @@
 export default class User {
     static ID = 0;
+    static username = "";
     static bank_balance = null;
     static company_data = [];
     static isOwnerOfCompany() {

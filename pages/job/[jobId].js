@@ -35,7 +35,6 @@ export default function JobPage() {
             .then(res => res.json())
             .then(
                 (result) => {
-
                     let _SpeedData = [];
                     let _SpeedLimitData = [];
                     let _averageSpeed = 0;
@@ -45,10 +44,7 @@ export default function JobPage() {
                     if(result.job_data_entries){
                         if(result.job_data_entries.length > 0){
 
-                            result.job_data_entries.forEach(function (element){
-                                _SpeedData.push({x: new Date(element.created_at).toLocaleString(), y: element.current_speed_kph});
-                                _SpeedLimitData.push({x: new Date(element.created_at).toLocaleString(), y: element.current_speed_limit_kph});
-
+                            result.job_data_entries.forEach(function (element, index){
                                 if(element.current_speed_kph > 1){
                                     _averageSpeed += element.current_speed_kph;
                                     _averageSpeedValues++;
@@ -56,7 +52,12 @@ export default function JobPage() {
 
                                 if(element.current_speed_kph > _maxSpeed)
                                     _maxSpeed = element.current_speed_kph;
+
+                                _SpeedData.push({x: new Date(element.created_at), y: element.current_speed_kph});
+                                _SpeedLimitData.push({x: new Date(element.created_at), y: element.current_speed_limit_kph});
                             });
+
+                            console.log(_SpeedData);
 
                             _averageSpeed = _averageSpeed/_averageSpeedValues;
                         }
@@ -149,11 +150,14 @@ export default function JobPage() {
                                 height={500}
                                 padding={{right: 25, left: 70, top: 40, bottom: 60}}
                                 domainPadding={{y: 20}}
-                                containerComponent={<VictoryVoronoiContainer
-                                    labels={({ datum }) => datum.childName === "speed-chart-line-speed" ? `Speed: ${datum.y} km/h` : `Speed limit: ${datum.y} km/h\nTime: ${datum.x}`}
+                                containerComponent={
+                                <VictoryVoronoiContainer
+                                    labels={({ datum }) =>
+                                        datum.childName === "speed-chart-line-speed" ? `Speed: ${datum.y} km/h` : `Speed limit: ${datum.y} km/h\nTime: ${new Date(datum.x).toLocaleString()}`}
                                     voronoiDimension="x"
-                                />}
-                            ><VictoryLegend x={125} y={50}
+                                />
+                            }>
+                                <VictoryLegend x={125} y={50}
                                             orientation="horizontal"
                                             gutter={20}
                                             style={{ border: { stroke: "black" }, zIndex: 30 }}
@@ -163,7 +167,7 @@ export default function JobPage() {
                                             ]}
                             />
                                 <VictoryAxis dependentAxis label={"Speed"} />
-                                <VictoryAxis label={"Time"} fixLabelOverlap={true}/>
+                                <VictoryAxis label={"Time"} fixLabelOverlap={true} tickFormat={(t) => new Date(t).toLocaleTimeString()}/>
                                 <VictoryLine
                                     style={{
                                         data: { stroke: "#64d2ff" },
