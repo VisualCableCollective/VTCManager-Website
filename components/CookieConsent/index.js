@@ -5,6 +5,8 @@ import 'vanilla-cookieconsent/dist/cookieconsent.js';
 
 export default function CookieConsent() {
     useEffect(() => {
+        window.adsbygoogle.pauseAdRequests = 1;
+
         // Dark Mode
         if (!document.body.classList.contains('c_darkmode')) {
             document.body.classList.toggle('c_darkmode');
@@ -35,11 +37,17 @@ export default function CookieConsent() {
                 // revision: 0,                            // default: 0
 
                 onFirstAction: function(user_preferences, cookie){
-                    // callback triggered only once on the first accept/reject action
                 },
 
                 onAccept: function (cookie) {
                     // callback triggered on the first accept/reject action, and after each page load
+
+                    // accepted categories
+                    if (!cookie.categories.includes("targeting")) {
+                        window.adsbygoogle.requestNonPersonalizedAds = 1;
+                    }
+
+                    window.adsbygoogle.pauseAdRequests = 0;
                 },
 
                 onChange: function (cookie, changed_categories) {

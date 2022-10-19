@@ -50,14 +50,10 @@ function MyApp({ Component, pageProps }) {
             <CookieConsent />
 
             <Script 
-            strategy="beforeInteractive"
-            src="https://cmp.osano.com/Azqe5ATEfK5kJ58/bef3cd5a-ec43-44f1-babd-c06c14570741/osano.js" />
-
-            <Script 
             id="google-adsense"
             async
             crossOrigin="anonymous"
-            data-cookiecategory="ads"
+            data-cookiecategory="targeting"
             strategy="beforeInteractive"
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3288402026194745"
             onError={(e) => {
