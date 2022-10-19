@@ -53,17 +53,8 @@ export default function JobPage() {
                                 if(element.current_speed_kph > _maxSpeed)
                                     _maxSpeed = element.current_speed_kph;
 
-                                // element is first or last item
-                                if ((index + 1) === result.job_data_entries.length || index === 0) {
-                                    _SpeedData.push({x: new Date(element.created_at), y: element.current_speed_kph});
-                                    _SpeedLimitData.push({x: new Date(element.created_at), y: element.current_speed_limit_kph});
-                                } else {
-                                    // determine if speed has changed since last update
-                                    if (_SpeedData[_SpeedData.length - 1].y !== element.current_speed_kph) {
-                                        _SpeedData.push({x: new Date(element.created_at), y: element.current_speed_kph});
-                                        _SpeedLimitData.push({x: new Date(element.created_at), y: element.current_speed_limit_kph});
-                                    }
-                                }
+                                _SpeedData.push({x: new Date(element.created_at), y: element.current_speed_kph});
+                                _SpeedLimitData.push({x: new Date(element.created_at), y: element.current_speed_limit_kph});
                             });
 
                             console.log(_SpeedData);
