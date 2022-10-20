@@ -1,4 +1,5 @@
 import {createContext, useContext, useState} from "react";
+import {useMediaQuery} from "@mui/material";
 
 export const SidebarContext = createContext({
     isOpen: true,
@@ -6,7 +7,8 @@ export const SidebarContext = createContext({
 });
 
 export function SidebarContextProvider(props) {
-    const [isOpen, setIsOpen] = useState(false);
+    const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+    const [isOpen, setIsOpen] = useState(!isDesktop);
 
     const context = {
         isOpen,
