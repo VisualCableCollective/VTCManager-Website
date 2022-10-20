@@ -1,5 +1,6 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {useMediaQuery} from "@mui/material";
+import {useAuth} from "./AuthContext";
 
 export const SidebarContext = createContext({
     isOpen: true,
@@ -7,13 +8,24 @@ export const SidebarContext = createContext({
 });
 
 export function SidebarContextProvider(props) {
-    const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('lg'));
-    const [isOpen, setIsOpen] = useState(!isDesktop);
+    const [isOpen, setIsOpen] = useState(false);
+    const auth = useAuth();
 
     const context = {
         isOpen,
         setIsOpen
     };
+
+    const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+
+    useEffect(() => {
+        if (isDesktop && !auth.isAuthenticated){
+            setIsOpen(false);
+            return;
+        }
+
+        setIsOpen(isDesktop);
+    }, [isDesktop, auth.isAuthenticated]);
 
     return (
         <SidebarContext.Provider value={context}>
