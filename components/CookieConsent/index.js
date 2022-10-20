@@ -8,6 +8,7 @@ export default function CookieConsent() {
         if (typeof window === 'undefined') {
             return;
         }
+        while (window.adsbygoogle == null) {}
         window.adsbygoogle.pauseAdRequests = 1;
 
         // Dark Mode
