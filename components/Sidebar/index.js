@@ -13,12 +13,16 @@ import {RiDiscordFill, RiBuilding3Line} from "react-icons/ri";
 import {FaServer, FaUser, FaBuilding} from "react-icons/fa";
 import {HiOutlineLogin, HiOutlineClipboardList} from "react-icons/hi";
 import {FiDownload, FiServer} from "react-icons/fi";
+import {useRouter} from "next/router";
 
 
 const SubMenuItem = ({ title, to }) => {
+    const sidebarCtx = useSidebar();
+
     return (
         <Link href={to}>
-            <a className="text-left flex items-center shadow-none py-3 px-4 border-l-4 border-transparent text-white hover:text-blue-dark text-xs">
+            <a className="text-left flex items-center shadow-none py-3 px-4 border-l-4 border-transparent text-white hover:text-blue-dark text-xs"
+               onClick={() => sidebarCtx.setIsOpen(false)}>
                 {title}
             </a>
         </Link>
@@ -34,9 +38,11 @@ const SubMenuItem = ({ title, to }) => {
 }*/
 
 const MenuItem = ({title, to, icon, className = ""}) => {
+    const sidebarCtx = useSidebar();
 
     let content = (
-        <a className={("flex items-center text-left shadow-none py-2 px-4 border-l-4 border-transparent hover:bg-black hover:bg-opacity-40 active:bg-opacity-60 " + className)}>
+        <a className={("flex items-center text-left shadow-none py-2 px-4 border-l-4 border-transparent hover:bg-black hover:bg-opacity-40 active:bg-opacity-60 " + className)}
+           onClick={() => sidebarCtx.setIsOpen(false)}>
             <div className="text-xl text-grey-darker mr-2">
                 {icon}
             </div>
@@ -171,7 +177,7 @@ export const SideBar = (props) => {
 
     useEffect(() => {
         setIsVisible(sidebarCtx.isOpen || isDesktop);
-    }, [sidebarCtx.isOpen, isDesktop])
+    }, [sidebarCtx.isOpen, isDesktop]);
 
     return (
         <div className={"bg-sidebar min-h-screen h-full fixed z-10 pt-12 transition-all duration-700 ease-in-out shadow-2xl " + (isVisible ? "opacity-100" : "opacity-0")} style={{ width: (isVisible ? "15rem" : "0rem") }}>

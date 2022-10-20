@@ -67,7 +67,7 @@ export default function CompanyApplicationsPage() {
         (
             <div>
                 <div className="page-wrapper p-6 navbar-top-margin">
-                    <div className="w-full bg-dark-3 rounded p-5 mb-6">
+                    <div className="w-full bg-dark-3 rounded p-5 mb-6 overflow-x-auto">
                         <h1 className="font-bold text-3xl text-center mb-5">Applications</h1>
                         <table className="table-auto w-full">
                             <thead>
