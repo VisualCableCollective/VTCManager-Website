@@ -14,6 +14,7 @@ import {DefaultLayout} from "../layouts/DefaultLayout";
 import CookieConsent from "../components/CookieConsent";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {CookiesProvider} from "react-cookie";
+import {SidebarContextProvider} from "../contexts/SidebarContext";
 
 const theme = createTheme({
     palette: {
@@ -29,9 +30,11 @@ function MyApp({ Component, pageProps }) {
                     <MaintenanceChecker>
                         <CookiesProvider>
                             <AuthContextProvider>
-                                <DefaultLayout>
-                                    <Component {...pageProps} />
-                                </DefaultLayout>
+                                <SidebarContextProvider>
+                                    <DefaultLayout>
+                                        <Component {...pageProps} />
+                                    </DefaultLayout>
+                                </SidebarContextProvider>
                             </AuthContextProvider>
                         </CookiesProvider>
                     </MaintenanceChecker>

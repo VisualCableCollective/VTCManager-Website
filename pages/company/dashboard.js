@@ -101,7 +101,7 @@ export default function CompanyDashboardPage() {
                     </div>
                 </DashItem>
             </div>
-            <div className="w-full bg-dark-3 rounded p-5 my-6">
+            <div className="w-full bg-dark-3 rounded p-5 my-6 overflow-x-auto">
                 <h1 className="font-bold text-3xl text-center mb-5">The latest 5 tours in this company</h1>
                 <table className="5-latest-tours-table table-auto w-full bg-dark-3 rounded p-5">
                     <thead>

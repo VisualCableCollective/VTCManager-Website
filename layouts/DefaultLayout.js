@@ -26,7 +26,7 @@ export function DefaultLayout({children}) {
             <div className="flex">
                 <SideBar />
 
-                <div className={"min-w-full transition-all duration-700 ease-in-out " + (auth.isAuthenticated && "pl-60")}>
+                <div className={"min-w-full transition-all duration-700 ease-in-out " + (auth.isAuthenticated && "lg:pl-60")}>
                     {children}
 
                     <Footer />
