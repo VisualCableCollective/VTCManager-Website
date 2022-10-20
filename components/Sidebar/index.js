@@ -5,6 +5,15 @@ import User from '../../models/User';
 import {useAuth} from "../../contexts/AuthContext";
 import {useSidebar} from "../../contexts/SidebarContext";
 import {useMediaQuery} from "@mui/material";
+import Image from "next/image";
+import LoginIcon from "../../public/svg/login-white.svg";
+import {AiOutlineInfoCircle, AiOutlineHome, AiOutlineUser} from "react-icons/ai";
+
+import {RiDiscordFill, RiBuilding3Line} from "react-icons/ri";
+import {FaServer, FaUser, FaBuilding} from "react-icons/fa";
+import {HiOutlineLogin, HiOutlineClipboardList} from "react-icons/hi";
+import {FiDownload, FiServer} from "react-icons/fi";
+
 
 const SubMenuItem = ({ title, to }) => {
     return (
@@ -24,18 +33,28 @@ const SubMenuItem = ({ title, to }) => {
   );
 }*/
 
-const MenuItem = ({title, to, icon}) => {
+const MenuItem = ({title, to, icon, className = ""}) => {
+
+    let content = (
+        <a className={("flex items-center text-left shadow-none py-2 px-4 border-l-4 border-transparent hover:bg-black hover:bg-opacity-40 active:bg-opacity-60 " + className)}>
+            <div className="text-xl text-grey-darker mr-2">
+                {icon}
+            </div>
+            <div className="text-white text-xs">{title}</div>
+        </a>
+    )
+
+    if (to) {
+        content = (
+            <Link href={to}>
+                {content}
+            </Link>
+        )
+    }
 
     return (
         <div className="group relative sidebar-item with-children">
-            <Link href={to}>
-                <a className="flex items-center text-left shadow-none py-2 px-4 border-l-4 border-transparent hover:bg-black hover:bg-opacity-40 active:bg-opacity-60">
-                    <div className="h-6 w-6 text-grey-darker mr-2" style={{height: 24}}>
-                        {icon}
-                    </div>
-                    <div className="text-white text-xs">{title}</div>
-                </a>
-            </Link>
+            {content}
         </div>
     )
 }
@@ -45,7 +64,9 @@ const SubMenuItems = ({children, title, icon}) => {
         <>
             <div className="group relative sidebar-item with-children">
                 <div className="flex items-center text-left shadow-none py-2 px-4 border-l-4 border-blue-dark bg-black opacity-75">
-                    {icon}
+                    <div className="text-xl mr-2">
+                        {icon}
+                    </div>
                     <div className="text-white text-xs">{title}</div>
                 </div>
             </div>
@@ -53,6 +74,91 @@ const SubMenuItems = ({children, title, icon}) => {
                 {children}
             </div>
         </>
+    )
+}
+
+const AuthSidebar = () => {
+    return (
+        <div className="py-2">
+            <MenuItem title="Dashboard" to="/dashboard" icon={<AiOutlineHome />}/>
+            <MenuItem title="Logbook" to="/logbook" icon={<HiOutlineClipboardList />}/>
+            <SubMenuItems title="Company" icon={<RiBuilding3Line />}>
+                {User.company_data ? null : <SubMenuItem title="Create Company" to="/company/create" />}
+                {User.company_data ? <SubMenuItem title="Dashboard" to="/company/dashboard" /> : null}
+                {User.company_data ? <SubMenuItem title="Logbook" to="/company/logbook" /> : null}
+                {User.company_data && User.isOwnerOfCompany() ? <SubMenuItem title="Applications" to="/company/applications" /> : null}
+                {User.company_data ? <SubMenuItem title="Employees" to="/company/employees" /> : null}
+                <SubMenuItem title="Companies" to="/companies" />
+                {User.company_data ? <SubMenuItem title="Settings" to="/company/settings" /> : null}
+            </SubMenuItems>
+            <SubMenuItems title="My Account" icon={<AiOutlineUser />}>
+                {/*<SubMenuItem title="Profile" to="/" />
+                       <SubMenuItem title="Settings" to="/" />*/}
+                <SubMenuItem title="Sign Out" to="/logout" />
+            </SubMenuItems>
+            <MenuItem title="Desktop Client" to="/client/download" icon={<FiDownload />} className="lg:hidden"/>
+            <MenuItem title="Discord" to="https://vcc-online.eu/redirect/discord" icon={<RiDiscordFill />} className="lg:hidden"/>
+            <MenuItem title="Support" to="https://vcc-online.eu/redirect/discord" icon={<AiOutlineInfoCircle />} className="lg:hidden"/>
+            <MenuItem title="Server Status" to="https://status.vcc-online.eu/" icon={<FiServer />} className="lg:hidden"/>
+        </div>
+    );
+}
+
+const GuestSidebar = () => {
+    return (
+        <div className="py-2">
+            <MenuItem title="Discord" to="https://vcc-online.eu/redirect/discord" icon={<RiDiscordFill />}/>
+            <MenuItem title="Support" to="https://vcc-online.eu/redirect/discord" icon={<AiOutlineInfoCircle />}/>
+            <MenuItem title="Server Status" to="https://status.vcc-online.eu/" icon={<FiServer />}/>
+            <AuthButton />
+        </div>
+    )
+}
+
+const AuthButton = () => {
+    const auth = useAuth();
+
+    if (auth.isAuthenticated)
+        return (
+            <MenuItem title="Sign out" to="/logout" icon={<HiOutlineLogin />} />
+        );
+    if (auth.isAuthenticating) {
+        return <AuthButtonLoading text="Signing In..." />;
+    }
+    else if (auth.isRedirectingToLogin) {
+        return <AuthButtonLoading text="Redirecting..." />;
+    }
+
+    return (
+        <MenuItem title="Sign in" to="/login" icon={<HiOutlineLogin />} />
+    );
+}
+
+const AuthButtonLoading = ({text}) => {
+    return (
+        <MenuItem title={text} icon={
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" className="mr-2 h-4">
+                <defs>
+                    <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
+                        <stop stopColor="#fff" stopOpacity={0} offset="0%"/>
+                        <stop stopColor="#fff" stopOpacity=".631" offset="63.146%"/>
+                        <stop stopColor="#fff" offset="100%"/>
+                    </linearGradient>
+                </defs>
+                <g fill="none" fillRule="evenodd">
+                    <g transform="translate(1 1)">
+                        <path d="M36 18c0-9.94-8.06-18-18-18" id="Oval-2" stroke="url(#a)" strokeWidth={4}>
+                            <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18"
+                                              dur="0.9s" repeatCount="indefinite"/>
+                        </path>
+                        <circle fill="#fff" cx={36} cy={18} r={1}>
+                            <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18"
+                                              dur="0.9s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                </g>
+            </svg>
+        } />
     )
 }
 
@@ -64,45 +170,12 @@ export const SideBar = (props) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        if (!auth.isAuthenticated) {
-            setIsVisible(false);
-            return;
-        }
-
         setIsVisible(sidebarCtx.isOpen || isDesktop);
-    }, [auth.isAuthenticated, sidebarCtx.isOpen, isDesktop])
+    }, [sidebarCtx.isOpen, isDesktop])
 
     return (
-        <div className={"bg-sidebar min-h-screen h-full fixed z-10 pt-10 transition-all duration-700 ease-in-out shadow-2xl " + (isVisible ? "opacity-100" : "opacity-0")} style={{ width: (isVisible ? "15rem" : "0rem") }}>
-            <div className="py-2">
-                <MenuItem title="Dashboard" to="/dashboard" icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>}/>
-                <MenuItem title="Logbook" to="/logbook" icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" height="24" className="h-6 w-6 text-grey-darker xl:mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>}/>
-                <SubMenuItems title="Company" icon={
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" height="24" className="h-6 w-6 text-grey-darker mr-2">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                }>
-                    {User.company_data ? null : <SubMenuItem title="Create Company" to="/company/create" />}
-                    {User.company_data ? <SubMenuItem title="Dashboard" to="/company/dashboard" /> : null}
-                    {User.company_data ? <SubMenuItem title="Logbook" to="/company/logbook" /> : null}
-                    {User.company_data && User.isOwnerOfCompany() ? <SubMenuItem title="Applications" to="/company/applications" /> : null}
-                    {User.company_data ? <SubMenuItem title="Employees" to="/company/employees" /> : null}
-                    <SubMenuItem title="Companies" to="/companies" />
-                    {User.company_data ? <SubMenuItem title="Settings" to="/company/settings" /> : null}
-                </SubMenuItems>
-                <SubMenuItems title="My Account" icon={
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" height="24" className="h-6 w-6 text-grey-darker mr-2">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                }>
-                    {/*<SubMenuItem title="Profile" to="/" />
-                       <SubMenuItem title="Settings" to="/" />*/}
-                    <SubMenuItem title="Sign Out" to="/logout" />
-                </SubMenuItems>
-                <MenuItem title="Desktop Client" to="/client/download" icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>}/>
-            </div>
+        <div className={"bg-sidebar min-h-screen h-full fixed z-10 pt-12 transition-all duration-700 ease-in-out shadow-2xl " + (isVisible ? "opacity-100" : "opacity-0")} style={{ width: (isVisible ? "15rem" : "0rem") }}>
+            {auth.isAuthenticated ? <AuthSidebar /> : <GuestSidebar />}
             {/*<SidebarFooter>
         <div className="flex justify-end">
           <button className="focus:outline-none hover:text-opacity-70 text-white m-1">

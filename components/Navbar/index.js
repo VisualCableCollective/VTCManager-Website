@@ -99,7 +99,7 @@ export const Navbar = (props) => {
 const AuthButtonLoading = ({text}) => {
     return (
         <div
-            className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
+            className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 hidden lg:flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" className="mr-2 h-4">
                 <defs>
                     <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
