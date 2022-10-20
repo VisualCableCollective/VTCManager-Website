@@ -2,6 +2,7 @@ import {createContext, useContext, useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import User from "../models/User";
 import AppConfig from "../models/AppConfig";
+import {useCookies} from "react-cookie";
 
 export const AuthContext = createContext({
     isAuthenticating: false,
@@ -16,6 +17,8 @@ export function AuthContextProvider(props) {
     const [isAuthenticating, setIsAuthenticating] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isRedirectingToLogin, setIsRedirectingToLogin] = useState(false);
+
+    const [cookies, setCookie, removeCookie] = useCookies(['vtcm_session']);
 
     const context = {
         checkAuth,
@@ -115,6 +118,7 @@ export function AuthContextProvider(props) {
         if (res.message === "OK") {
             setIsAuthenticated(false);
             localStorage.removeItem("authtoken");
+            removeCookie('vtcm_session');
             toast.success('You have been logged out successfully!', {
                 position: "bottom-right",
                 autoClose: 5000,

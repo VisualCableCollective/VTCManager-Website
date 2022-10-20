@@ -5,6 +5,7 @@ import {useAuth} from "../contexts/AuthContext";
 
 import {FaWifi, FaPencilRuler, FaDownload, FaMicrochip, FaDesktop, FaTruck} from "react-icons/fa";
 import VTCMDesktopClientImage from "../public/img/screenshots/screenshot-1.png";
+import {btoa} from "buffer";
 
 export default function Home() {
     const router = useRouter();
@@ -92,4 +93,17 @@ export default function Home() {
           </div>
       </div>
   )
+}
+
+export async function getServerSideProps(context) {
+
+    // Handle OAuth callback
+    let tokenRequestParameter = context.query.token;
+    if (tokenRequestParameter) {
+        context.res.setHeader('Set-Cookie', ['vtcm_session=' + btoa(tokenRequestParameter)]);
+    }
+
+    return {
+        props: {}, // will be passed to the page component as props
+    }
 }

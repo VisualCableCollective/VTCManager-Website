@@ -8,15 +8,19 @@ import ServerIcon from '../../public/svg/server-white.svg';
 import LoginIcon from '../../public/svg/login-white.svg';
 import VTCManagerLogo from '../../public/img/vtcmanager.png';
 import {useAuth} from "../../contexts/AuthContext";
+import {useSidebar} from "../../contexts/SidebarContext";
+import {GiHamburgerMenu} from "react-icons/gi";
+import {AiOutlineClose} from "react-icons/ai";
 
 export const Navbar = (props) => {
     const auth = useAuth();
+    const sidebar = useSidebar();
 
     const [isUserSigningOut, setIsUserSigningOut] = useState(props.isUserSigningOut);
 
     let AuthButton = (
         <Link href="/login">
-            <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
+            <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 hidden lg:flex items-center">
                 <Image width="18px" src={LoginIcon} alt=""/>
                 <p className="ml-1">Sign In</p>
             </a>
@@ -25,7 +29,7 @@ export const Navbar = (props) => {
     if (auth.isAuthenticated)
         AuthButton = (
             <Link href="/logout">
-                <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
+                <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 hidden lg:flex items-center">
                     <Image width="18px" src={LoginIcon} alt=""/>
                     <p className="ml-1">Sign Out</p>
                 </a>
@@ -45,15 +49,28 @@ export const Navbar = (props) => {
         props.isUserSigningOut, isUserSigningOut]);
 
     return (
-        <nav className="fixed w-full navbar-home z-10">
-            <div className="flex justify-between mx-auto max-w-screen-md py-2 items-center">
+        <nav className="fixed w-full navbar-home z-20">
+            <div className="flex justify-between mx-auto max-w-screen-md py-2 px-4 items-center">
                 <Link href="/" passhref>
-                    <a className="relative h-7 w-7">
+                    <a className="relative h-7 w-7 hidden lg:block">
                         <Image src={VTCManagerLogo} alt="VTCM logo" layout={'fill'} objectFit={'contain'}/>
                     </a>
                 </Link>
 
-                <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center"
+                <div className="flex">
+                    <button className="relative h-7 w-7 lg:hidden text-xl cursor-pointer" onClick={() => sidebar.setIsOpen(!sidebar.isOpen)}>
+                        {sidebar.isOpen ? <AiOutlineClose /> : <GiHamburgerMenu />}
+                    </button>
+
+                </div>
+
+                <div className="relative h-7 w-7 lg:hidden" style={{transform: "translate(-50%, 0)"}}>
+                    <Image src={VTCManagerLogo} alt="VTCM logo" layout={'fill'} objectFit={'contain'}/>
+                </div>
+
+                <div className="lg:hidden"></div>
+
+                <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 hidden lg:flex items-center"
                    href="https://vcc-online.eu/redirect/discord">
                     <div className="relative mr-1 h-4 w-4">
                         <Image src={DiscordLogoWhite} alt="Discord" layout={'fill'} objectFit={'contain'}/>
@@ -62,13 +79,13 @@ export const Navbar = (props) => {
                 </a>
                 {/*<a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center"
                    href="/"><img className="mr-1 h-4" src={CalendarIcon} alt=""/>Events</a>*/}
-                <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center"
+                <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 hidden lg:flex items-center"
                    href="https://vcc-online.eu/">
                     <Image width="18px" src={InformationCircleIcon} alt="Support"/>
                     <p className="ml-1">Support</p>
                 </a>
 
-                <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center"
+                <a className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 hidden lg:flex items-center"
                    href="https://status.vcc-online.eu/">
                     <Image width="18px" src={ServerIcon} alt="Server Status"/>
                     <p className="ml-1">Server Status</p>
@@ -82,7 +99,7 @@ export const Navbar = (props) => {
 const AuthButtonLoading = ({text}) => {
     return (
         <div
-            className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 flex items-center">
+            className="text-gray-300 text-sm hover:text-white transition-colors ease-out duration-200 hidden lg:flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" className="mr-2 h-4">
                 <defs>
                     <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">

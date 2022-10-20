@@ -155,7 +155,7 @@ export default function UserDashboardPage() {
                    </DashItem>
                </div>
            </DashItem>
-            <DashItem>
+            <DashItem sx={{overflowX: "auto"}}>
                 <h1 className="font-bold text-3xl text-center mb-5">Your 5 Latest Tours</h1>
                 <table className="5-latest-tours-table table-auto w-full rounded p-5">
                     <thead>
