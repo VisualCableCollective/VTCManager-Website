@@ -5,6 +5,9 @@ import 'vanilla-cookieconsent/dist/cookieconsent.js';
 
 export default function CookieConsent() {
     useEffect(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
         window.adsbygoogle.pauseAdRequests = 1;
 
         // Dark Mode
