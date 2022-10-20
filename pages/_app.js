@@ -13,6 +13,7 @@ import {SideBar} from "../components/Sidebar";
 import {DefaultLayout} from "../layouts/DefaultLayout";
 import CookieConsent from "../components/CookieConsent";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {CookiesProvider} from "react-cookie";
 
 const theme = createTheme({
     palette: {
@@ -26,11 +27,13 @@ function MyApp({ Component, pageProps }) {
             <ThemeProvider theme={theme}>
                 <PageLoaderContextProvider>
                     <MaintenanceChecker>
-                        <AuthContextProvider>
-                            <DefaultLayout>
-                                <Component {...pageProps} />
-                            </DefaultLayout>
-                        </AuthContextProvider>
+                        <CookiesProvider>
+                            <AuthContextProvider>
+                                <DefaultLayout>
+                                    <Component {...pageProps} />
+                                </DefaultLayout>
+                            </AuthContextProvider>
+                        </CookiesProvider>
                     </MaintenanceChecker>
                 </PageLoaderContextProvider>
                 <CssBaseline />
