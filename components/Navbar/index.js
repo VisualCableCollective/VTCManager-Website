@@ -64,9 +64,11 @@ export const Navbar = (props) => {
 
                 </div>
 
-                <div className="relative h-7 w-7 lg:hidden" style={{transform: "translate(-50%, 0)"}}>
-                    <Image src={VTCManagerLogo} alt="VTCM logo" layout={'fill'} objectFit={'contain'}/>
-                </div>
+                <Link href={"/"} passHref>
+                    <a className="relative h-7 w-7 lg:hidden" style={{transform: "translate(-50%, 0)"}}>
+                        <Image src={VTCManagerLogo} alt="VTCM logo" layout={'fill'} objectFit={'contain'}/>
+                    </a>
+                </Link>
 
                 <div className="lg:hidden"></div>
 
