@@ -16,10 +16,10 @@ export function middleware(request: NextRequest) {
     }
   }).then(authResult => {
     if (!authResult["id"]) {
-      return NextResponse.redirect(new URL('/login', request.url))
+      return NextResponse.redirect(new URL('/login', request.url));
     }
   }).catch(e => {
-    console.log(e);
+    return NextResponse.redirect(new URL('/login', request.url));
   });
 }
 
