@@ -1,9 +1,10 @@
 import {useRouter} from "next/router";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import User from "../../models/User";
+import {toast} from "react-toastify";
 
 export default function CompanyApplicationsPage() {
     const router = useRouter();
@@ -12,15 +13,7 @@ export default function CompanyApplicationsPage() {
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(router.query.page);
 
-    useEffect(() => {
-        if(!User.isOwnerOfCompany()){
-            router.push("/");
-            return;
-        }
-        loadData();
-    }, []);
-
-    function loadData() {
+    const loadData = useCallback(() => {
         setLoading(true);
 
         fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyApplications, "page=" + currentPage), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
@@ -31,15 +24,25 @@ export default function CompanyApplicationsPage() {
                     setLoading(false);
                 },
                 (error) => {
+                    console.error(error);
+                    toast.error('An error occurred while loading the applications.', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        toastId: "load-applications-error",
+                    });
                 }
             )
-    }
+    }, [currentPage]);
 
-    function handlePageClick(data) {
+    async function handlePageClick(data) {
         setData([]);
+        await router.push("/company/applications?page=" + (data.selected + 1));
         setCurrentPage(data.selected + 1);
-        router.push("/company/applications?page=" + (data.selected + 1));
-        loadData();
     }
 
     let applications = [];
@@ -62,6 +65,17 @@ export default function CompanyApplicationsPage() {
             );
         });
     }
+
+    useEffect(() => {
+        async function init() {
+            if(!User.isOwnerOfCompany()){
+                await router.push("/");
+                return;
+            }
+            loadData();
+        }
+        init();
+    }, [loadData, router]);
 
     return (
         (

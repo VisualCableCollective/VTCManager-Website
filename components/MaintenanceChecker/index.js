@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import {usePageLoader} from "../../contexts/PageLoaderContext";
 
@@ -10,9 +10,9 @@ export function MaintenanceChecker({children}) {
         maintenanceRef.current = isInMaintenanceMode;
     }, [isInMaintenanceMode])
 
-    const pageLoader = usePageLoader();
+    const pageLoader = useRef(usePageLoader());
 
-    function checkMaintenance() {
+    const checkMaintenance = useCallback(() => {
         setTimeout(checkMaintenance, 10000);
 
         let url = HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CheckServiceStatus);
@@ -33,22 +33,22 @@ export function MaintenanceChecker({children}) {
                             window.location.reload(); //reload app if app files changed
                         }
                     }
-                    pageLoader.setIsLoading(false);
+                    pageLoader.current.setIsLoading(false);
                 },
-                (error) => {
+                () => {
                     setIsInMaintenanceMode(true);
-                    pageLoader.setIsLoading(false);
+                    pageLoader.current.setIsLoading(false);
                 }
             )
             .catch(() => {
                 setIsInMaintenanceMode(true);
-                pageLoader.setIsLoading(false);
+                pageLoader.current.setIsLoading(false);
             })
-    }
+    }, []);
 
     useEffect(() => {
         checkMaintenance();
-    }, [])
+    }, [checkMaintenance])
 
     if (isInMaintenanceMode) {
         return (

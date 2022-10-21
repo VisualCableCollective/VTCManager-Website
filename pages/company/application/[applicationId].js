@@ -1,7 +1,7 @@
 import {FaClock, FaFingerprint, FaInfoCircle, FaUser} from "react-icons/fa";
 import {HTTPRequestUtils} from "../../../utils/HTTPRequestUtils";
 import {toast} from "react-toastify";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import User from "../../../models/User";
 
@@ -47,8 +47,6 @@ export default function CompanyApplicationReviewPage() {
             .then(
                 (result) => {
                     console.log(result);
-                },
-                (error) => {
                 }
             )
     }
@@ -91,30 +89,13 @@ export default function CompanyApplicationReviewPage() {
                     toastId: "decline-application-success",
                 });
             })
-            .then(
-                (result) => {
-                    console.log(result);
-                },
-                (error) => {
-                }
-            )
     }
 
-    useEffect(() => {
-        if(!User.isOwnerOfCompany()){
-            router.push("/")
-            return;
-        }
-
-        loadData();
-    }, [])
-
-    function loadData() {
+    const loadData = useCallback(() => {
         fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyApplication, "", application_id), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result);
                     let showButtons = false;
                     if(result.status === "pending"){
                         showButtons = true;
@@ -123,9 +104,32 @@ export default function CompanyApplicationReviewPage() {
                     setShowButtons(showButtons);
                 },
                 (error) => {
+                    console.log(error);
+                    toast.error('An error occurred while loading the application.', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        toastId: "load-application-error",
+                    });
                 }
             )
-    }
+    }, [application_id]);
+
+    useEffect(() => {
+        async function init() {
+            if(!User.isOwnerOfCompany()){
+                await router.push("/")
+                return;
+            }
+
+            loadData();
+        }
+        init();
+    }, [loadData, router])
 
     return (
         <div className="page-wrapper p-6 navbar-top-margin">

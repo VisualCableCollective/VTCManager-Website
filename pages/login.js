@@ -1,12 +1,12 @@
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {HTTPRequestUtils} from "../utils/HTTPRequestUtils";
 import {useAuth} from "../contexts/AuthContext";
 
 export default function LoginPage() {
-    const auth = useAuth();
+    const auth = useRef(useAuth());
 
     useEffect(() => {
-        auth.setIsRedirectingToLogin(true);
+        auth.current.setIsRedirectingToLogin(true);
         window.location.href = HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.AuthRedirect);
     }, []);
 

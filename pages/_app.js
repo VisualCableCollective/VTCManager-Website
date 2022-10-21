@@ -15,6 +15,7 @@ import CookieConsent from "../components/CookieConsent";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {CookiesProvider} from "react-cookie";
 import {SidebarContextProvider} from "../contexts/SidebarContext";
+import NextNProgress from 'nextjs-progressbar';
 
 const theme = createTheme({
     palette: {
@@ -54,6 +55,7 @@ function MyApp({ Component, pageProps }) {
             />
 
             <CookieConsent />
+            <NextNProgress color="#2163fc" height={3} options={{showSpinner: false}} />
         </div>
     )
 }

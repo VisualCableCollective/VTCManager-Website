@@ -3,35 +3,33 @@ import Link from "next/link";
 import {LogbookUtils} from "../utils/LogbookUtils";
 import ReactPaginate from "react-paginate";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../utils/HTTPRequestUtils";
 import {NoJobsInfo} from "../components/logbook/NoJobsInfo";
-import {Breadcrumbs, Grow, Typography} from "@mui/material";
+import {Breadcrumbs, Typography} from "@mui/material";
 import User from "../models/User";
 import {DashItem} from "../components/DashItem";
 
 export default function LogbookPage() {
     const router = useRouter();
 
-    const [currentPage, setCurrentPage] = useState(router.query.page);
-    const [newPage, setNewPage] = useState(false);
+    const [currentPage, setCurrentPage] = useState(router.query.page || 1);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
     const [serverResponse, setServerResponse] = useState(null);
     const [error, setError] = useState();
 
-    function handlePageClick(data) {
-        setNewPage(true);
+    async function handlePageClick(data) {
         setIsLoaded(false);
         setItems([]);
         setServerResponse(null);
         setCurrentPage(data.selected + 1);
 
-        router.push("/logbook?page=" + (data.selected + 1), null, {shallow: true});
+        await router.push("/logbook?page=" + (data.selected + 1), null, {shallow: true});
     }
 
-    function loadData() {
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.UserLogbook, "page=" + currentPage), { headers: new Headers({'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json'})})
+    const loadData = useCallback((page) => {
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.UserLogbook, "page=" + page), { headers: new Headers({'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json'})})
             .then(res => res.json())
             .then(
                 (result) => {
@@ -44,11 +42,11 @@ export default function LogbookPage() {
                     setError(error);
                 }
             )
-    }
+    }, []);
 
     useEffect(() => {
-        loadData();
-    }, [currentPage])
+        loadData(currentPage);
+    }, [currentPage, loadData])
 
     let response;
     if (error) {
