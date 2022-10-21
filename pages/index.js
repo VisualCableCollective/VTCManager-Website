@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {useRouter} from "next/router";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {useAuth} from "../contexts/AuthContext";
 
 import {FaWifi, FaPencilRuler, FaDownload, FaMicrochip, FaDesktop, FaTruck} from "react-icons/fa";
@@ -9,14 +9,14 @@ import {btoa} from "buffer";
 
 export default function Home() {
     const router = useRouter();
-    const auth = useAuth();
+    const auth = useRef(useAuth());
 
     useEffect(() => {
         // OAuth token callback
-        let tokenRequestParameter = router.query.token;
+        let tokenRequestParameter = router.query.token?.toString();
         if (tokenRequestParameter) {
             localStorage.setItem('authtoken', tokenRequestParameter);
-            auth.checkAuth();
+            auth.current.checkAuth();
         }
     }, [router.query]);
 
@@ -28,8 +28,10 @@ export default function Home() {
                   <h2 className="text-md sm:text-2xl">The future starts now.</h2>
               </div>
 
-              <Image src={VTCMDesktopClientImage} alt="VTCM client screenshot"
-                   className="h-auto mx-auto my-8 shadow-xl" />
+              <Image src={VTCMDesktopClientImage}
+                     alt="VTCM client screenshot"
+                     className="h-auto mx-auto my-8 shadow-xl"
+                     priority={true} />
 
               <div>
                   <h1 className="text-xl sm:text-2xl">VTCManager Desktop Client Public Beta</h1>

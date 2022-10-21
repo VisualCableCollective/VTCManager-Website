@@ -1,14 +1,14 @@
 import {useRouter} from "next/router";
 import User from "../models/User";
 import ReactPaginate from "react-paginate";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../utils/HTTPRequestUtils";
 import {toast} from "react-toastify";
 
 export default function CompaniesSearchPage() {
     const router = useRouter();
 
-    const [currentPage, setCurrentPage] = useState(router.query.page);
+    const [currentPage, setCurrentPage] = useState(router.query.page || 1);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [disableModalButtons, setDisableModalButtons] = useState(false);
@@ -18,13 +18,9 @@ export default function CompaniesSearchPage() {
     const [isApplyModalVisible, setIsApplyModalVisible] = useState(false);
     const [companyName, setCompanyName] = useState("");
 
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    function loadData() {
+    const loadData = useCallback((searchName, page) => {
         setLoading(true);
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanySearch, "page=" + currentPage + "&q=" + companyName), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanySearch, "page=" + page + "&q=" + encodeURI(searchName)), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {
@@ -32,24 +28,30 @@ export default function CompaniesSearchPage() {
                     setLoading(false);
                 },
                 (error) => {
+                    console.error(error);
+                    toast.error('An error occurred while loading the search results.', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        toastId: "load-companies-error",
+                    });
                 }
             )
-    }
+    }, []);
 
     function handleSubmit(event) {
         event.preventDefault();
-        loadData();
+        setCompanyName(event.target.elements.namedItem('search_name').value);
     }
 
-    function handleSearchBarChange(event) {
-        setCompanyName(event.target.value);
-    }
-
-    function handlePageClick(data) {
+    async function handlePageClick(data) {
         setData([]);
         setCurrentPage(data.selected + 1);
-        router.push("/companies?page=" + data.selected + 1)
-        loadData();
+        await router.push("/companies?page=" + data.selected + 1)
     }
 
     function showApplyModal(company_id, company_name){
@@ -87,8 +89,6 @@ export default function CompaniesSearchPage() {
             body: JSON.stringify({ application_text: applyModalDescriptionContent })
         };
 
-        let thisComponent = this;
-
         fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.ApplyAtCompany, "", applyModalCurrentCompanyID), requestOptions)
             .then(function(response) {
                 if(response.status !== 201){
@@ -121,17 +121,19 @@ export default function CompaniesSearchPage() {
                 (result) => {
                     console.log(result);
                     setDisableModalButtons(false);
-                },
-                (error) => {
                 }
             )
     }
+
+    useEffect(() => {
+        loadData(companyName, currentPage);
+    }, [companyName, currentPage, loadData]);
 
     let found_companies = [];
     if(data["data"]){
         data["data"].forEach(function(element, index) {
             found_companies.push(
-                <div className={"p-4 flex w-full justify-between items-center border-white border-opacity-40 " + (index === 0 ? "" : "border-t-2")}>
+                <div key={element.id} className={"p-4 flex w-full justify-between items-center border-white border-opacity-40 " + (index === 0 ? "" : "border-t-2")}>
                     <div>
                         <h2 className="text-2xl font-bold">{element.name}</h2>
                         <p>{element.about_us || "No description available"}</p>
@@ -194,18 +196,18 @@ export default function CompaniesSearchPage() {
                         <h1 className="font-bold text-3xl text-center mb-5">Companies</h1>
                         <div className="mb-4">
                             <form onSubmit={handleSubmit} className="flex">
-                                <input
+                                <input name="search_name"
                                     className="shadow-inner focus:shadow rounded w-full py-2 px-3 placeholder-gray-400 bg-dark-4 focus:bg-dark-5 transition-all duration-75 outline-none mr-3" type="text"
-                                    placeholder="Search for company..." value={companyName} onChange={handleSearchBarChange} />
+                                    placeholder="Search for company..." defaultValue={companyName} />
                                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
                             </form>
                         </div>
-                        {found_companies}
+                        {!loading && found_companies }
                         <div className={loading ? "block" : "hidden"}>
                             <h1 className="font-bold text-2xl text-center p-4">Loading...</h1>
                         </div>
                         <div className={"flex justify-center"}>
-                            {data["data"] &&
+                            {data["data"]?.length > 0 &&
                                 <ReactPaginate
                                     onPageChange={handlePageClick}
                                     initialPage={data["current_page"]-1}

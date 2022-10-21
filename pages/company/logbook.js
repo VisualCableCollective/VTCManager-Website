@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {LogbookUtils} from "../../utils/LogbookUtils";
 import NumberFormat from "react-number-format";
 import Link from "next/link";
@@ -13,24 +13,23 @@ import {Breadcrumbs, Typography} from "@mui/material";
 export default function CompanyLogbookPage() {
     const router = useRouter();
 
-    const [currentPage, setCurrentPage] = useState(router.query.page);
+    const [currentPage, setCurrentPage] = useState(router.query.page || 1);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
     const [serverResponse, setServerResponse] = useState(null);
     const [error, setError] = useState();
 
-    function handlePageClick(data) {
+    async function handlePageClick(data) {
         setIsLoaded(false);
         setItems([]);
         setServerResponse(null);
         setCurrentPage(data.selected + 1);
 
-        router.push("/company/logbook?page=" + (data.selected + 1), null, {shallow: true});
-        loadData();
+        await router.push("/company/logbook?page=" + (data.selected + 1), null, {shallow: true});
     }
 
-    function loadData() {
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyLogbook, "page=" + currentPage), { headers: new Headers({'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json'})})
+    const loadData = useCallback((page) => {
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyLogbook, "page=" + page), { headers: new Headers({'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json'})})
             .then(res => res.json())
             .then(
                 (result) => {
@@ -43,11 +42,11 @@ export default function CompanyLogbookPage() {
                     setError(error);
                 }
             )
-    }
+    }, []);
 
     useEffect(() => {
-        loadData();
-    }, []);
+        loadData(currentPage);
+    }, [currentPage, loadData]);
 
     let response;
     if (error) {

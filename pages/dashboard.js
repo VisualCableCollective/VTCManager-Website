@@ -104,13 +104,13 @@ export default function UserDashboardPage() {
                 </Breadcrumbs>
             </DashItem>
            <DashItem transparent={true} padding={0}>
-               <div className="top-stats-overview-wrapper w-full grid gap-6 sm:grid-cols-5">
+               <div className="top-stats-overview-wrapper w-full grid gap-6 md:grid-cols-4 xl:grid-cols-5">
                    <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
                        <div className="flex-grow self-center">
                            <h1 className="text-3xl">{dashboardData["jobs_delivered_total"] || "-"}</h1>
                            <p className="text-opacity-70 text-white mt-1">Jobs delivered (Total)</p>
                        </div>
-                       <div className="flex-none self-center">
+                       <div className="flex-none self-center ml-3">
                            <FaClipboardCheck size="42px" />
                        </div>
                    </DashItem>
@@ -119,7 +119,7 @@ export default function UserDashboardPage() {
                            <h1 className="text-3xl">{dashboardData["jobs_delivered_7_days"] || "-"}</h1>
                            <p className="text-opacity-70 text-white mt-1">Jobs delivered<br />(Last 7 Days)</p>
                        </div>
-                       <div className="flex-none self-center">
+                       <div className="flex-none self-center ml-3">
                            <FaTruck size="42px" />
                        </div>
                    </DashItem>
@@ -131,7 +131,7 @@ export default function UserDashboardPage() {
                            </h1>
                            <p className="text-opacity-70 text-white mt-1">Current Account Balance</p>
                        </div>
-                       <div className="flex-none self-center">
+                       <div className="flex-none self-center ml-3">
                            <FaCoins size="42px" />
                        </div>
                    </DashItem>
@@ -140,7 +140,7 @@ export default function UserDashboardPage() {
                            <h1 className="text-3xl">{LogbookUtils.getJobStatusText(dashboardData["latest_tour_status"])}</h1>
                            <p className="text-opacity-70 text-white mt-1">Latest Tour Status</p>
                        </div>
-                       <div className="flex-none self-center">
+                       <div className="flex-none self-center ml-3">
                            {LogbookUtils.getJobStatusIcon(dashboardData["latest_tour_status"], "42px")}
                        </div>
                    </DashItem>
@@ -149,7 +149,7 @@ export default function UserDashboardPage() {
                            <h1 className="text-xl">{online_status_text}</h1>
                            <p className="text-opacity-70 text-white mt-1">Online Status</p>
                        </div>
-                       <div className="flex-none self-center">
+                       <div className="flex-none self-center ml-3">
                            {online_status_icon}
                        </div>
                    </DashItem>

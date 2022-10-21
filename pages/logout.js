@@ -1,17 +1,18 @@
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {useAuth} from "../contexts/AuthContext";
 import {useRouter} from "next/router";
 
 export default function LogoutPage() {;
-    const auth = useAuth();
+    const auth = useRef(useAuth());
     const router = useRouter();
 
     useEffect(() => {
-        auth.logout()
-            .then(() => {
-                router.push("/");
-            })
-    }, []);
+        async function logout() {
+            auth.current.logout();
+            await router.push("/");
+        }
+        logout();
+    }, [router]);
 
     return (
         <div className="h-screen w-100 flex items-center justify-center">

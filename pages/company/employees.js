@@ -1,7 +1,7 @@
 import ReactPaginate from "react-paginate";
 import User from "../../models/User";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import {toast} from "react-toastify";
 
@@ -9,17 +9,13 @@ export default function CompanyEmployeesPage() {
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(router.query.page);
+    const [currentPage, setCurrentPage] = useState(router.query.page || 1);
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    function loadData() {
+    const loadData = useCallback((page) => {
         setLoading(true);
 
-        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyEmployees, "page=" + currentPage), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
+        fetch(HTTPRequestUtils.getUrl(HTTPRequestUtils.API_routes.CompanyEmployees, "page=" + page), { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
             .then(res => res.json())
             .then(
                 (result) => {
@@ -28,9 +24,20 @@ export default function CompanyEmployeesPage() {
                     setLoading(false);
                 },
                 (error) => {
+                    console.error(error);
+                    toast.error('An error occurred while loading the employees.', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        toastId: "load-employees-error",
+                    });
                 }
             )
-    }
+    }, []);
 
     function kickEmployee(userID) {
         let kickButton = document.getElementById("kick-employee-button-" + userID);
@@ -70,20 +77,12 @@ export default function CompanyEmployeesPage() {
                     toastId: "kick-employee-success",
                 });
             })
-            .then(
-                (result) => {
-                    console.log(result);
-                },
-                (error) => {
-                }
-            )
     }
 
-    function handlePageClick(data) {
+    async function handlePageClick(data) {
         setData([]);
         setCurrentPage(data.selected + 1);
-        router.push("/company/employees?page=" + (data.selected + 1))
-        loadData();
+        await router.push("/company/employees?page=" + (data.selected + 1))
     }
 
     let employeesRows = [];
@@ -102,6 +101,10 @@ export default function CompanyEmployeesPage() {
             );
         });
     }
+
+    useEffect(() => {
+        loadData(currentPage);
+    }, [currentPage, loadData]);
 
     return (
         (
