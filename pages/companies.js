@@ -50,8 +50,8 @@ export default function CompaniesSearchPage() {
 
     async function handlePageClick(data) {
         setData([]);
-        setCurrentPage(data.selected + 1);
-        await router.push("/companies?page=" + data.selected + 1)
+        setCurrentPage((data.selected + 1));
+        await router.push("/companies?page=" + (data.selected + 1))
     }
 
     function showApplyModal(company_id, company_name){
