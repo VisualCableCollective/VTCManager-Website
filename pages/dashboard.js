@@ -10,8 +10,11 @@ import Log from "tailwindcss/lib/util/log";
 import {NoJobsInfo} from "../components/logbook/NoJobsInfo";
 import {Box, Breadcrumbs, Paper, Typography} from "@mui/material";
 import {DashItem} from "../components/DashItem";
+import {useAuth} from "../contexts/AuthContext";
 
 export default function UserDashboardPage() {
+    const auth = useAuth();
+
     const [dashboardData, setDashboardData] = useState([]);
 
     useEffect(() => {
@@ -99,7 +102,7 @@ export default function UserDashboardPage() {
         <div className="page-wrapper p-6 navbar-top-margin">
             <DashItem>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Typography color="inherit">{User.username}</Typography>
+                    <Typography color="inherit">{auth.user.username}</Typography>
                     <Typography color="text.primary">Dashboard</Typography>
                 </Breadcrumbs>
             </DashItem>
@@ -126,7 +129,7 @@ export default function UserDashboardPage() {
                    <DashItem sx={{display: "flex", height: "120px"}} mb={0}>
                        <div className="flex-grow self-center">
                            <h1 className="text-3xl">
-                               <NumberFormat value={User.bank_balance} thousandSeparator="." decimalSeparator="," displayType="text"
+                               <NumberFormat value={auth.user.bank_balance} thousandSeparator="." decimalSeparator="," displayType="text"
                                              suffix=" €" defaultValue={0} fixedDecimalScale={true} decimalScale={2} />
                            </h1>
                            <p className="text-opacity-70 text-white mt-1">Current Account Balance</p>

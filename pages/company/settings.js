@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import { toast } from "react-toastify";
 import User from "../../models/User";
+import {useAuth} from "../../contexts/AuthContext";
 
 export default function CompanySettingsPage() {
+    const auth = useAuth();
+
     const [isDeletingCompany, setIsDeletingCompany] = useState(false);
     const [isLeavingCompany, setIsLeavingCompany] = useState(false);
     const [isRenamingCompany, setIsRenamingCompany] = useState(false);
@@ -130,7 +133,7 @@ export default function CompanySettingsPage() {
                             </div>
                         </div>
                         {
-                            User.isOwnerOfCompany() &&
+                            auth.user.isOwnerOfCompany() &&
                             <div className="mt-10 sm:mt-0">
                                 <div className="md:grid md:grid-cols-3 md:gap-6">
                                     <div className="md:col-span-1">
@@ -193,7 +196,7 @@ export default function CompanySettingsPage() {
                             </div>
                         }
                         {
-                            !User.isOwnerOfCompany() &&
+                            !auth.user.isOwnerOfCompany() &&
                             <div className="mt-10 sm:mt-0">
                                 <div className="md:grid md:grid-cols-3 md:gap-6">
                                     <div className="md:col-span-1">

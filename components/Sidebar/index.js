@@ -85,18 +85,19 @@ const SubMenuItems = ({children, title, icon}) => {
 }
 
 const AuthSidebar = () => {
+    const auth = useAuth();
     return (
         <div className="py-2">
             <MenuItem title="Dashboard" to="/dashboard" icon={<AiOutlineHome />}/>
             <MenuItem title="Logbook" to="/logbook" icon={<HiOutlineClipboardList />}/>
             <SubMenuItems title="Company" icon={<RiBuilding3Line />}>
-                {User.company_data ? null : <SubMenuItem title="Create Company" to="/company/create" />}
-                {User.company_data ? <SubMenuItem title="Dashboard" to="/company/dashboard" /> : null}
-                {User.company_data ? <SubMenuItem title="Logbook" to="/company/logbook" /> : null}
-                {User.company_data && User.isOwnerOfCompany() ? <SubMenuItem title="Applications" to="/company/applications" /> : null}
-                {User.company_data ? <SubMenuItem title="Employees" to="/company/employees" /> : null}
+                {auth.user.company_data ? null : <SubMenuItem title="Create Company" to="/company/create" />}
+                {auth.user.company_data ? <SubMenuItem title="Dashboard" to="/company/dashboard" /> : null}
+                {auth.user.company_data ? <SubMenuItem title="Logbook" to="/company/logbook" /> : null}
+                {auth.user.company_data && auth.user.isOwnerOfCompany() ? <SubMenuItem title="Applications" to="/company/applications" /> : null}
+                {auth.user.company_data ? <SubMenuItem title="Employees" to="/company/employees" /> : null}
                 <SubMenuItem title="Companies" to="/companies" />
-                {User.company_data ? <SubMenuItem title="Settings" to="/company/settings" /> : null}
+                {auth.user.company_data ? <SubMenuItem title="Settings" to="/company/settings" /> : null}
             </SubMenuItems>
             <SubMenuItems title="My Account" icon={<AiOutlineUser />}>
                 {/*<SubMenuItem title="Profile" to="/" />

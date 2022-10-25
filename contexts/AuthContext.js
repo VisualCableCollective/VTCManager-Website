@@ -10,13 +10,15 @@ export const AuthContext = createContext({
     isRedirectingToLogin: false,
     checkAuth: () => {},
     setIsRedirectingToLogin: () => {},
-    logout: () => {}
+    logout: () => {},
+    user: new User()
 });
 
 export function AuthContextProvider(props) {
     const [isAuthenticating, setIsAuthenticating] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isRedirectingToLogin, setIsRedirectingToLogin] = useState(false);
+    const [userData, setUserData] = useState(new User());
 
     const [cookies, setCookie, removeCookie] = useCookies(['vtcm_session']);
 
@@ -26,7 +28,8 @@ export function AuthContextProvider(props) {
         isAuthenticated,
         isRedirectingToLogin,
         setIsRedirectingToLogin,
-        logout
+        logout,
+        user: userData
     };
 
     function checkAuth() {
@@ -42,12 +45,12 @@ export function AuthContextProvider(props) {
             .then(
                 (result) => {
                     if (result["id"]) {
-                        //store bank balance
-                        User.ID = result["id"];
-                        User.username = result["VCC_User"]["username"];
-                        console.log(User.username);
-                        User.bank_balance = result["bank_balance"];
-                        User.company_data = result["company"];
+                        const user = new User();
+                        user.ID = result["id"];
+                        user.username = result["VCC_User"]["username"];
+                        user.bank_balance = result["bank_balance"];
+                        user.company_data = result["company"];
+                        setUserData(user);
 
                         setIsAuthenticated(true);
                     } else {

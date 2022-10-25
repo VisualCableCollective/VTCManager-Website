@@ -4,9 +4,11 @@ import ReactPaginate from "react-paginate";
 import {useCallback, useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../utils/HTTPRequestUtils";
 import {toast} from "react-toastify";
+import {useAuth} from "../contexts/AuthContext";
 
 export default function CompaniesSearchPage() {
     const router = useRouter();
+    const auth = useAuth();
 
     const [currentPage, setCurrentPage] = useState(router.query.page || 1);
     const [loading, setLoading] = useState(true);
@@ -139,7 +141,7 @@ export default function CompaniesSearchPage() {
                         <p>{element.about_us || "No description available"}</p>
                     </div>
                     <div>
-                        { element.id === (User.company_data ? User.company_data.id : 0) ? "" : <button onClick={ () => showApplyModal(element.id, element.name) } className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Apply</button> }
+                        { element.id === (auth.user.company_data ? auth.user.company_data.id : 0) ? "" : <button onClick={ () => showApplyModal(element.id, element.name) } className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Apply</button> }
                     </div>
                 </div>
             );

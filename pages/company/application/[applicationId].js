@@ -1,12 +1,14 @@
 import {FaClock, FaFingerprint, FaInfoCircle, FaUser} from "react-icons/fa";
 import {HTTPRequestUtils} from "../../../utils/HTTPRequestUtils";
 import {toast} from "react-toastify";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import User from "../../../models/User";
+import {useAuth} from "../../../contexts/AuthContext";
 
 export default function CompanyApplicationReviewPage() {
     const router = useRouter();
+    const auth = useRef(useAuth());
 
     const [disableButtons, setDisableButtons] = useState(false);
     const [showButtons, setShowButtons] = useState(false);
@@ -121,7 +123,7 @@ export default function CompanyApplicationReviewPage() {
 
     useEffect(() => {
         async function init() {
-            if(!User.isOwnerOfCompany()){
+            if(!auth.current.user.isOwnerOfCompany()){
                 await router.push("/")
                 return;
             }

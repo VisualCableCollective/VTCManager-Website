@@ -1,13 +1,15 @@
 import {useRouter} from "next/router";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import User from "../../models/User";
 import {toast} from "react-toastify";
+import {useAuth} from "../../contexts/AuthContext";
 
 export default function CompanyApplicationsPage() {
     const router = useRouter();
+    const auth = useRef(useAuth());
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -68,7 +70,7 @@ export default function CompanyApplicationsPage() {
 
     useEffect(() => {
         async function init() {
-            if(!User.isOwnerOfCompany()){
+            if(!auth.current.user.isOwnerOfCompany()){
                 await router.push("/");
                 return;
             }
