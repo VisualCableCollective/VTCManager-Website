@@ -35,17 +35,6 @@ export function AuthContextProvider(props) {
 
         setIsAuthenticating(true);
 
-        toast.dark('We are currently trying to restore your session. Please wait!', {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            toastId: "restoring-session",
-        });
-
         let url = AppConfig.server_url + 'api/webapp/check';
 
         fetch(url, { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
@@ -59,16 +48,6 @@ export function AuthContextProvider(props) {
                         console.log(User.username);
                         User.bank_balance = result["bank_balance"];
                         User.company_data = result["company"];
-                        toast.success('You have been logged in successfully!', {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            toastId: "restoring-session-success",
-                        });
 
                         setIsAuthenticated(true);
                     } else {
@@ -92,7 +71,7 @@ export function AuthContextProvider(props) {
                         })
                         localStorage.removeItem("authtoken")
                     }
-                    setIsAuthenticating(false)
+                    setIsAuthenticating(false);
                 },
                 () => {
                     toast.error('Sorry, but we couldn\'t log you in. Please click "Sign In" on top of the page to try it again.', {
@@ -104,8 +83,8 @@ export function AuthContextProvider(props) {
                         draggable: true,
                         progress: undefined,
                         toastId: "restoring-session-success",
-                    })
-                    setIsAuthenticating(false)
+                    });
+                    setIsAuthenticating(false);
                 }
             )
     }
