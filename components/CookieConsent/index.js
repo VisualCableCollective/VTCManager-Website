@@ -1,15 +1,23 @@
-import { useEffect } from "react";
+import {useCallback, useEffect} from "react";
 
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 import 'vanilla-cookieconsent/dist/cookieconsent.js';
 
 export default function CookieConsent() {
-    useEffect(() => {
-        if (typeof window === 'undefined') {
-            return;
+    const init = useCallback((tryNum) => {
+        let skipAds = false;
+
+        if (tryNum < 15) {
+            if (window.adsbygoogle === 'undefined' || window.adsbygoogle == null) {
+                setTimeout(() => { init(tryNum + 1) }, 100);
+                console.log(tryNum);
+                return;
+            }
+        } else {
+            skipAds = true;
         }
-        while (window.adsbygoogle == null) {}
-        window.adsbygoogle.pauseAdRequests = 1;
+
+        if (!skipAds) window.adsbygoogle.pauseAdRequests = 1;
 
         // Dark Mode
         if (!document.body.classList.contains('c_darkmode')) {
@@ -45,6 +53,8 @@ export default function CookieConsent() {
 
                 onAccept: function (cookie) {
                     // callback triggered on the first accept/reject action, and after each page load
+
+                    if (skipAds) return;
 
                     // accepted categories
                     if (!cookie.categories.includes("targeting")) {
@@ -137,8 +147,18 @@ export default function CookieConsent() {
                 }
             }
         );
-
     }, []);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        init(0);
+
+    }, [init]);
+
+
 
     return null;
 }
