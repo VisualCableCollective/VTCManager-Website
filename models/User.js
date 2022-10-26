@@ -1,9 +1,9 @@
 export default class User {
-    static ID = 0;
-    static username = "";
-    static bank_balance = null;
-    static company_data = [];
-    static isOwnerOfCompany() {
+    ID = 0;
+    username = "";
+    bank_balance = null;
+    company_data = [];
+    isOwnerOfCompany() {
         return this.ID === this.company_data["owner_id"];
     }
 }

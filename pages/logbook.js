@@ -9,9 +9,11 @@ import {NoJobsInfo} from "../components/logbook/NoJobsInfo";
 import {Breadcrumbs, Typography} from "@mui/material";
 import User from "../models/User";
 import {DashItem} from "../components/DashItem";
+import {useAuth} from "../contexts/AuthContext";
 
 export default function LogbookPage() {
     const router = useRouter();
+    const auth = useAuth();
 
     const [currentPage, setCurrentPage] = useState(router.query.page || 1);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -138,7 +140,7 @@ export default function LogbookPage() {
         <div className="p-6 navbar-top-margin">
             <DashItem>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Typography color="inherit">{User.username}</Typography>
+                    <Typography color="inherit">{auth.user.username}</Typography>
                     <Typography color="text.primary">Logbook</Typography>
                 </Breadcrumbs>
             </DashItem>

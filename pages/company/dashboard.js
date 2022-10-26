@@ -8,8 +8,11 @@ import User from "../../models/User";
 import {NoJobsInfo} from "../../components/logbook/NoJobsInfo";
 import {Breadcrumbs, Typography} from "@mui/material";
 import {DashItem} from "../../components/DashItem";
+import {useAuth} from "../../contexts/AuthContext";
 
 export default function CompanyDashboardPage() {
+    const auth = useAuth();
+
     const [dashboardData, setDashboardData] = useState([]);
 
     useEffect(() => {
@@ -50,7 +53,7 @@ export default function CompanyDashboardPage() {
         <div className="page-wrapper p-6 navbar-top-margin">
             <DashItem>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Typography color="inherit">{User.company_data["name"]}</Typography>
+                    <Typography color="inherit">{auth.user.company_data["name"]}</Typography>
                     <Typography color="text.primary">Dashboard</Typography>
                 </Breadcrumbs>
             </DashItem>

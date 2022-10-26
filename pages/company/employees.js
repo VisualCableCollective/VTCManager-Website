@@ -4,9 +4,11 @@ import {useRouter} from "next/router";
 import {useCallback, useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import {toast} from "react-toastify";
+import {useAuth} from "../../contexts/AuthContext";
 
 export default function CompanyEmployeesPage() {
     const router = useRouter();
+    const auth = useAuth();
 
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(router.query.page || 1);
@@ -89,7 +91,7 @@ export default function CompanyEmployeesPage() {
     if (data["data"]) {
         data["data"].forEach(function (element) {
             let kickButton;
-            if (User.isOwnerOfCompany() && element.id !== User.ID)
+            if (auth.user.isOwnerOfCompany() && element.id !== auth.user.ID)
                 kickButton = <button id={"kick-employee-button-" + element.id} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50" onClick={() => kickEmployee(element.id)}>Kick</button>;
 
             employeesRows.push(

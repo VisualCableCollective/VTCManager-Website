@@ -10,13 +10,15 @@ export const AuthContext = createContext({
     isRedirectingToLogin: false,
     checkAuth: () => {},
     setIsRedirectingToLogin: () => {},
-    logout: () => {}
+    logout: () => {},
+    user: new User()
 });
 
 export function AuthContextProvider(props) {
     const [isAuthenticating, setIsAuthenticating] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isRedirectingToLogin, setIsRedirectingToLogin] = useState(false);
+    const [userData, setUserData] = useState(new User());
 
     const [cookies, setCookie, removeCookie] = useCookies(['vtcm_session']);
 
@@ -26,7 +28,8 @@ export function AuthContextProvider(props) {
         isAuthenticated,
         isRedirectingToLogin,
         setIsRedirectingToLogin,
-        logout
+        logout,
+        user: userData
     };
 
     function checkAuth() {
@@ -35,17 +38,6 @@ export function AuthContextProvider(props) {
 
         setIsAuthenticating(true);
 
-        toast.dark('We are currently trying to restore your session. Please wait!', {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            toastId: "restoring-session",
-        });
-
         let url = AppConfig.server_url + 'api/webapp/check';
 
         fetch(url, { headers: new Headers({ 'Authorization': 'Bearer ' + localStorage.getItem('authtoken'), 'Accept': 'application/json' }) })
@@ -53,22 +45,12 @@ export function AuthContextProvider(props) {
             .then(
                 (result) => {
                     if (result["id"]) {
-                        //store bank balance
-                        User.ID = result["id"];
-                        User.username = result["VCC_User"]["username"];
-                        console.log(User.username);
-                        User.bank_balance = result["bank_balance"];
-                        User.company_data = result["company"];
-                        toast.success('You have been logged in successfully!', {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            toastId: "restoring-session-success",
-                        });
+                        const user = new User();
+                        user.ID = result["id"];
+                        user.username = result["VCC_User"]["username"];
+                        user.bank_balance = result["bank_balance"];
+                        user.company_data = result["company"];
+                        setUserData(user);
 
                         setIsAuthenticated(true);
                     } else {
@@ -92,7 +74,7 @@ export function AuthContextProvider(props) {
                         })
                         localStorage.removeItem("authtoken")
                     }
-                    setIsAuthenticating(false)
+                    setIsAuthenticating(false);
                 },
                 () => {
                     toast.error('Sorry, but we couldn\'t log you in. Please click "Sign In" on top of the page to try it again.', {
@@ -104,8 +86,8 @@ export function AuthContextProvider(props) {
                         draggable: true,
                         progress: undefined,
                         toastId: "restoring-session-success",
-                    })
-                    setIsAuthenticating(false)
+                    });
+                    setIsAuthenticating(false);
                 }
             )
     }
