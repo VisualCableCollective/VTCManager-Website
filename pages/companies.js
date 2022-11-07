@@ -5,6 +5,8 @@ import {useCallback, useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../utils/HTTPRequestUtils";
 import {toast} from "react-toastify";
 import {useAuth} from "../contexts/AuthContext";
+import {Breadcrumbs, Typography} from "@mui/material";
+import {DashItem} from "../components/DashItem";
 
 export default function CompaniesSearchPage() {
     const router = useRouter();
@@ -135,7 +137,7 @@ export default function CompaniesSearchPage() {
     if(data["data"]){
         data["data"].forEach(function(element, index) {
             found_companies.push(
-                <div key={element.id} className={"p-4 flex w-full justify-between items-center border-white border-opacity-40 " + (index === 0 ? "" : "border-t-2")}>
+                <div key={element.id} className={"py-4 flex w-full justify-between items-center border-white border-opacity-40 " + (index === 0 ? "" : "border-t-2")}>
                     <div>
                         <h2 className="text-2xl font-bold">{element.name}</h2>
                         <p>{element.about_us || "No description available"}</p>
@@ -156,12 +158,12 @@ export default function CompaniesSearchPage() {
                         onSubmit={ handleApplyModalSubmit }
                         className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                         <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-                            <div className="absolute inset-0 bg-gray-500 opacity-75"/>
+                            <div className="absolute inset-0 bg-black opacity-75"/>
                         </div>
                         <span className="hidden sm:inline-block sm:align-middle sm:h-screen"
                               aria-hidden="true">&#8203;</span>
                         <div
-                            className="inline-block align-bottom bg-dark-3 text-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                            className="inline-block align-bottom bg-dark-3 text-white rounded text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                             role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                             <div className="bg-dark-3 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                 <div>
@@ -194,8 +196,12 @@ export default function CompaniesSearchPage() {
                     </form>
                 </div>
                 <div className="page-wrapper p-6">
-                    <div className="w-full bg-dark-3 rounded p-5 mb-6">
-                        <h1 className="font-bold text-3xl text-center mb-5">Companies</h1>
+                    <DashItem>
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Typography color="text.primary">Explore Companies</Typography>
+                        </Breadcrumbs>
+                    </DashItem>
+                    <DashItem sx={{padding: 3}}>
                         <div className="mb-4">
                             <form onSubmit={handleSubmit} className="flex">
                                 <input name="search_name"
@@ -241,7 +247,7 @@ export default function CompaniesSearchPage() {
                                 />
                             }
                         </div>
-                    </div>
+                    </DashItem>
                 </div>
             </div>
         )
