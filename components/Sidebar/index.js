@@ -9,7 +9,7 @@ import Image from "next/image";
 import LoginIcon from "../../public/svg/login-white.svg";
 import {AiOutlineInfoCircle, AiOutlineHome, AiOutlineUser} from "react-icons/ai";
 
-import {RiDiscordFill, RiBuilding3Line} from "react-icons/ri";
+import {RiDiscordFill, RiBuilding3Line, RiBankLine} from "react-icons/ri";
 import {FaServer, FaUser, FaBuilding} from "react-icons/fa";
 import {HiOutlineLogin, HiOutlineClipboardList} from "react-icons/hi";
 import {FiDownload, FiServer} from "react-icons/fi";
@@ -99,6 +99,7 @@ const AuthSidebar = () => {
                 <SubMenuItem title="Companies" to="/companies" />
                 {auth.user.company_data ? <SubMenuItem title="Settings" to="/company/settings" /> : null}
             </SubMenuItems>
+            <MenuItem title="Money Transactions" to="/money-transactions" icon={<RiBankLine />}/>
             <SubMenuItems title="My Account" icon={<AiOutlineUser />}>
                 {/*<SubMenuItem title="Profile" to="/" />
                        <SubMenuItem title="Settings" to="/" />*/}

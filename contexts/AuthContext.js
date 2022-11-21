@@ -47,7 +47,7 @@ export function AuthContextProvider(props) {
                     if (result["id"]) {
                         const user = new User();
                         user.ID = result["id"];
-                        user.username = result["VCC_User"]["username"];
+                        user.username = result["VCC_User"]["user"]["username"];
                         user.bank_balance = result["bank_balance"];
                         user.company_data = result["company"];
                         setUserData(user);
