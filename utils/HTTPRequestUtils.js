@@ -21,6 +21,7 @@ export class HTTPRequestUtils {
         "CheckServiceStatus":           17,
         "LeaveCompany":                 18,
         "RenameCompany":                19,
+        "GetUserMoneyTransactions":     20,
     });
 
     static getUrl(route, additional_params = "", id = 0){
@@ -99,6 +100,10 @@ export class HTTPRequestUtils {
 
             case this.API_routes.RenameCompany:
                 url += "company/rename";
+                break;
+
+            case this.API_routes.GetUserMoneyTransactions:
+                url += "money-transactions";
                 break;
 
             default:
