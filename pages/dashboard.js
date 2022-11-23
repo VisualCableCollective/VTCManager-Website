@@ -162,7 +162,7 @@ export default function UserDashboardPage() {
                 <h1 className="font-bold text-3xl text-center mb-5">Your 5 Latest Tours</h1>
                 <table className="5-latest-tours-table table-auto w-full rounded p-5">
                     <thead>
-                    <tr key="thead-logbook" className="border-t border-b border-white border-opacity-40">
+                    <tr key="thead-logbook" className="border-b border-white border-opacity-40">
                         <th className="px-5 py-1">ID</th>
                         <th className="px-5 py-1">Departure</th>
                         <th className="px-5 py-1">Destination</th>

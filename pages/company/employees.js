@@ -5,6 +5,8 @@ import {useCallback, useEffect, useState} from "react";
 import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import {toast} from "react-toastify";
 import {useAuth} from "../../contexts/AuthContext";
+import {Breadcrumbs, Typography} from "@mui/material";
+import {DashItem} from "../../components/DashItem";
 
 export default function CompanyEmployeesPage() {
     const router = useRouter();
@@ -96,8 +98,8 @@ export default function CompanyEmployeesPage() {
 
             employeesRows.push(
                 <tr key={"employee-" + element.id} className="border-t border-b border-white border-opacity-40">
-                    <td className="px-5 text-center py-2">{element.id || "n/a"}</td>
-                    <td className="px-5 text-center py-2">{element.username || "n/a"}</td>
+                    <td className="px-5 text-center py-4">{element.id || "n/a"}</td>
+                    <td className="px-5 text-center py-4">{element.username || "n/a"}</td>
                     <td className="px-5 text-center py-4">{kickButton}</td>
                 </tr>
             );
@@ -112,11 +114,16 @@ export default function CompanyEmployeesPage() {
         (
             <div>
                 <div className="page-wrapper p-6 navbar-top-margin">
-                    <div className="w-full bg-dark-3 rounded p-5 mb-6 overflow-x-auto">
-                        <h1 className="font-bold text-3xl text-center mb-5">Employees</h1>
+                    <DashItem>
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Typography color="inherit">{auth.user.company_data["name"]}</Typography>
+                            <Typography color="text.primary">Employees</Typography>
+                        </Breadcrumbs>
+                    </DashItem>
+                    <DashItem className="w-full p-5 mb-6 overflow-x-auto">
                         <table className="table-auto w-full">
                             <thead>
-                            <tr key="thead-logbook" className="border-t border-b border-white border-opacity-40">
+                            <tr key="thead-logbook" className="border-b border-white border-opacity-40">
                                 <th className="px-5 py-1">ID</th>
                                 <th className="px-5 py-1">Username</th>
                                 <th className="px-5 py-1" />
@@ -163,7 +170,7 @@ export default function CompanyEmployeesPage() {
                             }
 
                         </div>
-                    </div>
+                    </DashItem>
                 </div>
             </div>
         )

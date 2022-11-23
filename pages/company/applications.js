@@ -6,10 +6,13 @@ import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import User from "../../models/User";
 import {toast} from "react-toastify";
 import {useAuth} from "../../contexts/AuthContext";
+import {Breadcrumbs, Typography} from "@mui/material";
+import {DashItem} from "../../components/DashItem";
 
 export default function CompanyApplicationsPage() {
     const router = useRouter();
-    const auth = useRef(useAuth());
+    const auth = useAuth();
+    const authRef = useRef(auth);
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -70,7 +73,7 @@ export default function CompanyApplicationsPage() {
 
     useEffect(() => {
         async function init() {
-            if(!auth.current.user.isOwnerOfCompany()){
+            if(!authRef.current.user.isOwnerOfCompany()){
                 await router.push("/");
                 return;
             }
@@ -83,11 +86,16 @@ export default function CompanyApplicationsPage() {
         (
             <div>
                 <div className="page-wrapper p-6 navbar-top-margin">
-                    <div className="w-full bg-dark-3 rounded p-5 mb-6 overflow-x-auto">
-                        <h1 className="font-bold text-3xl text-center mb-5">Applications</h1>
+                    <DashItem>
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Typography color="inherit">{auth.user.company_data["name"]}</Typography>
+                            <Typography color="text.primary">Applications</Typography>
+                        </Breadcrumbs>
+                    </DashItem>
+                    <DashItem className="w-full p-5 mb-6 overflow-x-auto">
                         <table className="table-auto w-full">
                             <thead>
-                            <tr key="thead-logbook" className="border-t border-b border-white border-opacity-40">
+                            <tr key="thead-logbook" className="border-b border-white border-opacity-40">
                                 <th className="px-5 py-1">Application ID</th>
                                 <th className="px-5 py-1">Applicant</th>
                                 <th className="px-5 py-1">Status</th>
@@ -135,7 +143,7 @@ export default function CompanyApplicationsPage() {
                                 />
                             }
                         </div>
-                    </div>
+                    </DashItem>
                 </div>
             </div>
         )

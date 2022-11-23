@@ -80,24 +80,26 @@ export default function CompanyLogbookPage() {
         });
         response = (
             <div>
-                <table className="table-auto w-full">
-                    <thead>
-                    <tr key="thead-logbook" className="border-b border-white border-opacity-40">
-                        <th className="px-5 py-1">ID</th>
-                        <th className="px-5 py-1">Departure</th>
-                        <th className="px-5 py-1">Destination</th>
-                        <th className="px-5 py-1">Status</th>
-                        <th className="px-5 py-1">Cargo</th>
-                        <th className="px-5 py-1">Cargo Damage</th>
-                        <th className="px-5 py-1">Truck</th>
-                        <th className="px-5 py-1">Income</th>
-                        <th className="px-5 py-1"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {tableContent}
-                    </tbody>
-                </table>
+                <div className="overflow-x-auto">
+                    <table className="table-auto w-full">
+                        <thead>
+                        <tr key="thead-logbook" className="border-b border-white border-opacity-40">
+                            <th className="px-5 py-1">ID</th>
+                            <th className="px-5 py-1">Departure</th>
+                            <th className="px-5 py-1">Destination</th>
+                            <th className="px-5 py-1">Status</th>
+                            <th className="px-5 py-1">Cargo</th>
+                            <th className="px-5 py-1">Cargo Damage</th>
+                            <th className="px-5 py-1">Truck</th>
+                            <th className="px-5 py-1">Income</th>
+                            <th className="px-5 py-1"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {tableContent}
+                        </tbody>
+                    </table>
+                </div>
                 {tableContent.length < 1 && <NoJobsInfo variant="company" />}
                 {tableContent.length > 0 &&
                     <div className={"flex justify-center mt-4"}>
@@ -145,7 +147,7 @@ export default function CompanyLogbookPage() {
                 </Breadcrumbs>
             </DashItem>
             <DashItem mb={0}>
-                <div className="overflow-hidden">
+                <div>
                     {response}
                 </div>
             </DashItem>

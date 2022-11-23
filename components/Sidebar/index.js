@@ -8,7 +8,7 @@ import {useMediaQuery} from "@mui/material";
 import Image from "next/image";
 import LoginIcon from "../../public/svg/login-white.svg";
 import {AiOutlineInfoCircle, AiOutlineHome, AiOutlineUser} from "react-icons/ai";
-
+import {MdOutlineExplore} from "react-icons/md";
 import {RiDiscordFill, RiBuilding3Line, RiBankLine} from "react-icons/ri";
 import {FaServer, FaUser, FaBuilding} from "react-icons/fa";
 import {HiOutlineLogin, HiOutlineClipboardList} from "react-icons/hi";
@@ -21,7 +21,7 @@ const SubMenuItem = ({ title, to }) => {
 
     return (
         <Link href={to}>
-            <a className="text-left flex items-center shadow-none py-3 px-4 border-l-4 border-transparent text-white hover:text-blue-dark text-xs"
+            <a className="text-left flex bg-sidebar items-center shadow-none py-3 pl-11 pr-4 border-l-4 border-transparent text-white hover:bg-dark-6 hover:bg-opacity-40 active:bg-opacity-60 text-xs"
                onClick={() => !isDesktop && sidebarCtx.setIsOpen(false)}>
                 {title}
             </a>
@@ -42,7 +42,7 @@ const MenuItem = ({title, to, icon, className = ""}) => {
     const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('lg'));
 
     let content = (
-        <a className={("flex items-center text-left shadow-none py-2 px-4 border-l-4 border-transparent hover:bg-black hover:bg-opacity-40 active:bg-opacity-60 " + className)}
+        <a className={("flex items-center text-left bg-dark-2 shadow-none py-2 px-4 border-l-4 border-transparent hover:bg-dark-6 hover:bg-opacity-40 active:bg-opacity-60 " + className)}
            onClick={() => !isDesktop && sidebarCtx.setIsOpen(false)}>
             <div className="text-xl text-grey-darker mr-2">
                 {icon}
@@ -70,14 +70,14 @@ const SubMenuItems = ({children, title, icon}) => {
     return (
         <>
             <div className="group relative sidebar-item with-children">
-                <div className="flex items-center text-left shadow-none py-2 px-4 border-l-4 border-blue-dark bg-black opacity-75">
+                <div className="flex items-center text-left shadow-none py-2 px-4 border-l-4 border-blue-dark opacity-90 bg-dark-2">
                     <div className="text-xl mr-2">
                         {icon}
                     </div>
-                    <div className="text-white text-xs">{title}</div>
+                    <div className="text-white text-xs select-none">{title}</div>
                 </div>
             </div>
-            <div className="pin-t left-full pin-none w-auto group-hover:block bg-black z-auto">
+            <div className="pin-t left-full pin-none w-auto group-hover:block z-auto">
                 {children}
             </div>
         </>
@@ -96,10 +96,10 @@ const AuthSidebar = () => {
                 {auth.user.company_data ? <SubMenuItem title="Logbook" to="/company/logbook" /> : null}
                 {auth.user.company_data && auth.user.isOwnerOfCompany() ? <SubMenuItem title="Applications" to="/company/applications" /> : null}
                 {auth.user.company_data ? <SubMenuItem title="Employees" to="/company/employees" /> : null}
-                <SubMenuItem title="Companies" to="/companies" />
                 {auth.user.company_data ? <SubMenuItem title="Settings" to="/company/settings" /> : null}
             </SubMenuItems>
             <MenuItem title="Money Transactions" to="/money-transactions" icon={<RiBankLine />}/>
+            <MenuItem title="Explore Companies" to="/companies" icon={<MdOutlineExplore/>} />
             <SubMenuItems title="My Account" icon={<AiOutlineUser />}>
                 {/*<SubMenuItem title="Profile" to="/" />
                        <SubMenuItem title="Settings" to="/" />*/}
@@ -182,7 +182,7 @@ export const SideBar = (props) => {
     }, [sidebarCtx.isOpen]);
 
     return (
-        <div className={"bg-sidebar min-h-screen h-full fixed z-10 pt-12 transition-all duration-700 ease-in-out shadow-2xl " + (isVisible ? "opacity-100" : "opacity-0")} style={{ width: (isVisible ? "15rem" : "0rem") }}>
+        <div className={"bg-dark-2 min-h-screen h-full fixed z-10 pt-12 transition-all duration-700 ease-in-out shadow-2xl " + (isVisible ? "opacity-100" : "opacity-0")} style={{ width: (isVisible ? "15rem" : "0rem") }}>
             {auth.isAuthenticated ? <AuthSidebar /> : <GuestSidebar />}
             {/*<SidebarFooter>
         <div className="flex justify-end">

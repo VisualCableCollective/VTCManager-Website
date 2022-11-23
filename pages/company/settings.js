@@ -3,6 +3,8 @@ import {HTTPRequestUtils} from "../../utils/HTTPRequestUtils";
 import { toast } from "react-toastify";
 import User from "../../models/User";
 import {useAuth} from "../../contexts/AuthContext";
+import {Breadcrumbs, Typography} from "@mui/material";
+import {DashItem} from "../../components/DashItem";
 
 export default function CompanySettingsPage() {
     const auth = useAuth();
@@ -125,13 +127,13 @@ export default function CompanySettingsPage() {
         (
             <div>
                 <div className="page-wrapper p-6 navbar-top-margin">
+                    <DashItem>
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Typography color="inherit">{auth.user.company_data["name"]}</Typography>
+                            <Typography color="text.primary">Settings</Typography>
+                        </Breadcrumbs>
+                    </DashItem>
                     <div className="w-full bg-dark-3 rounded p-5 mb-6">
-                        <h1 className="font-bold text-3xl text-center mb-5">Company Settings</h1>
-                        <div className="hidden sm:block">
-                            <div className="py-8">
-                                <div className="border-t border-gray-200" />
-                            </div>
-                        </div>
                         {
                             auth.user.isOwnerOfCompany() &&
                             <div className="mt-10 sm:mt-0">
@@ -141,7 +143,7 @@ export default function CompanySettingsPage() {
                                             <h3 className="text-lg font-medium">Delete Company</h3>
 
                                             <p className="mt-1 text-sm text-white text-opacity-70">
-                                                Permanently delete your company and all data related to your company.
+                                                Permanently delete your company and all data related to it.
                                             </p>
                                         </div>
                                     </div>
