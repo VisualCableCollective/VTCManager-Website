@@ -98,14 +98,14 @@ const AuthSidebar = () => {
                 {auth.user.company_data ? <SubMenuItem title="Employees" to="/company/employees" /> : null}
                 {auth.user.company_data ? <SubMenuItem title="Settings" to="/company/settings" /> : null}
             </SubMenuItems>
-            <MenuItem title="Money Transactions" to="/money-transactions" icon={<RiBankLine />}/>
+            {/*<MenuItem title="Money Transactions" to="/money-transactions" icon={<RiBankLine />}/>*/}
             <MenuItem title="Explore Companies" to="/companies" icon={<MdOutlineExplore/>} />
             <SubMenuItems title="My Account" icon={<AiOutlineUser />}>
                 {/*<SubMenuItem title="Profile" to="/" />
                        <SubMenuItem title="Settings" to="/" />*/}
                 <SubMenuItem title="Sign Out" to="/logout" />
             </SubMenuItems>
-            <MenuItem title="Desktop Client" to="/client/download" icon={<FiDownload />} className="lg:hidden"/>
+            <MenuItem title="Desktop Client" to="/client/download" icon={<FiDownload />} />
             <MenuItem title="Discord" to="https://vcc-online.eu/redirect/discord" icon={<RiDiscordFill />} className="lg:hidden"/>
             <MenuItem title="Support" to="https://vcc-online.eu/redirect/discord" icon={<AiOutlineInfoCircle />} className="lg:hidden"/>
             <MenuItem title="Server Status" to="https://status.vcc-online.eu/" icon={<FiServer />} className="lg:hidden"/>
