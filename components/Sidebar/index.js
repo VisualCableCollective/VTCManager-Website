@@ -105,7 +105,7 @@ const AuthSidebar = () => {
                        <SubMenuItem title="Settings" to="/" />*/}
                 <SubMenuItem title="Sign Out" to="/logout" />
             </SubMenuItems>
-            <MenuItem title="Desktop Client" to="/client/download" icon={<FiDownload />} className="lg:hidden"/>
+            <MenuItem title="Desktop Client" to="/client/download" icon={<FiDownload />} />
             <MenuItem title="Discord" to="https://vcc-online.eu/redirect/discord" icon={<RiDiscordFill />} className="lg:hidden"/>
             <MenuItem title="Support" to="https://vcc-online.eu/redirect/discord" icon={<AiOutlineInfoCircle />} className="lg:hidden"/>
             <MenuItem title="Server Status" to="https://status.vcc-online.eu/" icon={<FiServer />} className="lg:hidden"/>
