@@ -44,7 +44,7 @@ export function CreateMoneyTransactionModal({isOpen, setIsOpen}) {
           /><br/>
           <TextFieldElement
             required
-            parseError={parseError}
+            //parseError={parseError}
             type={'email'}
             margin={'dense'}
             label={'Email with ParseError'}
