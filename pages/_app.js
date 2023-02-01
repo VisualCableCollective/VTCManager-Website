@@ -1,7 +1,7 @@
 import {MaintenanceChecker} from "../components/MaintenanceChecker";
 import {PageLoaderContextProvider} from "../contexts/PageLoaderContext";
 import {Navbar} from "../components/Navbar";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Footer} from "../components/Footer";
 import {ToastContainer} from "react-toastify";
 import {AuthContextProvider, useAuth} from "../contexts/AuthContext";
@@ -16,6 +16,7 @@ import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {CookiesProvider} from "react-cookie";
 import {SidebarContextProvider} from "../contexts/SidebarContext";
 import NextNProgress from 'nextjs-progressbar';
+import {useRouter} from "next/router";
 
 const theme = createTheme({
     palette: {
@@ -24,6 +25,14 @@ const theme = createTheme({
 });
 
 function MyApp({ Component, pageProps }) {
+    const router = useRouter();
+
+    useEffect(() => {
+        //router.push("https://nextgendrive.net/")
+    }, []);
+
+    return <>Redirecting... <a href="https://nextgendrive.net/">https://nextgendrive.net/</a></>;
+
     return (
         <div className="App min-h-screen bg-dark-1 text-white">
             <ThemeProvider theme={theme}>
