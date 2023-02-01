@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
     const router = useRouter();
 
     useEffect(() => {
-        //router.push("https://nextgendrive.net/")
+        router.push("https://nextgendrive.net/")
     }, []);
 
     return <>Redirecting... <a href="https://nextgendrive.net/">https://nextgendrive.net/</a></>;
